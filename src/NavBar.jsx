@@ -1,7 +1,22 @@
-import { MedicamentApp } from "./MedicamentApp"
+import { useState } from "react";
+import { useForm } from "./hooks/useFetch/useForm";
+import { MedicamentApp } from "./MedicamentApp";
 
 
 export const NavBar = () => {
+
+    const { data, onInputChange } = useForm({
+        medicamento: '',
+    }); 
+
+    const [mostrarMedicamentApp, setMostrarMedicamentApp] = useState(false);
+
+    const onFormSubmit = (event) =>{
+        event.preventDefault();
+        setMostrarMedicamentApp(true); // Cambia el estado para mostrar MedicamentApp
+    }
+
+   
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
@@ -27,14 +42,15 @@ export const NavBar = () => {
                     </ul>
                     </li>
                 </ul>
-                <form className="d-flex" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
+                <form onSubmit={ onFormSubmit } className="d-flex" role="search" >
+                    <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" onChange={ onInputChange }/>
                     <button className="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
                 </div>
             </div>
             </nav>
-            
+
+            { mostrarMedicamentApp && <MedicamentApp nombreMedicamento={data} />}
             
         </>
     )
