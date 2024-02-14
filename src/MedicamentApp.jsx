@@ -1,9 +1,7 @@
 
 
 export const MedicamentApp = ({ nombreMedicamento }) => {
-    
 
-    
     return (
         <>
             <h2> { nombreMedicamento } </h2>
