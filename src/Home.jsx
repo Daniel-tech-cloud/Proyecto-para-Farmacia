@@ -11,9 +11,6 @@ export const Home = () => {
         <>
             <NavBar />
             <hr/> 
-            
-
-           
 
             
         </>

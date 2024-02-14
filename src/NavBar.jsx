@@ -5,17 +5,19 @@ import { MedicamentApp } from "./MedicamentApp";
 
 export const NavBar = () => {
 
-    const { data, onInputChange } = useForm({
+    const { medicamento, onInputChange, onResetForm } = useForm({
         medicamento: '',
     }); 
 
     const [mostrarMedicamentApp, setMostrarMedicamentApp] = useState(false);
+    const [valorBusqueda, setValorBusqueda] = useState('');
 
     const onFormSubmit = (event) =>{
         event.preventDefault();
+        setValorBusqueda(medicamento); // Almacena el valor de búsqueda antes de limpiarlo
         setMostrarMedicamentApp(true); // Cambia el estado para mostrar MedicamentApp
+        onResetForm(); // Limpia el formulario después de almacenar el valor de búsqueda
     }
-
    
     return (
         <>
@@ -44,13 +46,18 @@ export const NavBar = () => {
                 </ul>
                 <form onSubmit={ onFormSubmit } className="d-flex" role="search" >
                     <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" onChange={ onInputChange }/>
-                    <button className="btn btn-outline-success" type="submit">Buscar</button>
+                    <button className="btn btn-outline-success"  type="submit">Buscar</button>
                 </form>
                 </div>
             </div>
             </nav>
-
-            { mostrarMedicamentApp && <MedicamentApp nombreMedicamento={data} />}
+       
+            {mostrarMedicamentApp && (
+                <>
+                    <h3>Búsqueda: { valorBusqueda }</h3>
+                    <MedicamentApp nombreMedicamento={ valorBusqueda } />
+                </>
+            )} 
             
         </>
     )

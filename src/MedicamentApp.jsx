@@ -1,11 +1,10 @@
 
 
-export const MedicamentApp = ({ nombreMedicamento }) => {
+export const MedicamentApp = () => {
+   
 
     return (
         <>
-            <h2> { nombreMedicamento } </h2>
-
             <ul className="list-group list-group-horizontal justify-content-center">
                 <li className="list-group-item">
                     <div className="card" >

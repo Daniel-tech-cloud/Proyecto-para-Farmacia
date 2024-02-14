@@ -5,14 +5,15 @@ export const useForm = (initialForm = {}) => {
     const [formState, setFormState] = useState(initialForm);
 
     const onInputChange = ({target}) =>{
-        const { data, value } = target;
+        const { value } = target;
         setFormState({
             ...formState,
-             data : value,
-        })
+            medicamento: value,
+        });
     }
     const onResetForm = () =>{
         setFormState(initialForm);
+  
     }
 
     return {
