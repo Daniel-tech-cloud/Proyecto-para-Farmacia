@@ -40,9 +40,9 @@ export const MedicamentApp = ({nombreMedicamento}) => {
                             <div className="card h-100 d-flex flex-column">
                                 <img src="./img/Quitadol.jpg" className="card-img-top" width="200" height="250" alt="..." />
                                 <div className="card-body">
-                                    <p className="card-text text-justify">{medicamento.descripcion}</p> 
+                                    <p className="card-text">{medicamento.descripcion}</p> 
                                 </div>
-                                <div className="mt-right card-footer">
+                                <div className="card-footer d-flex justify-content-end">
                                     <form className="d-flex" role="search" >
                                         <button className="btn btn-primary" type="submit">Indicaciones</button>
                                     </form>
