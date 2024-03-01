@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Home } from './Home';
-import { MedicamentApp } from './MedicamentApp';
+import { Home } from './components/Home';
+
+
 // https://api.fda.gov/other/substance.json?search=names.name:"PARACETAMOL"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
