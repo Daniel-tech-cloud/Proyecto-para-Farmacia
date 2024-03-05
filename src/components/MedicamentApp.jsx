@@ -1,46 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import Papa from 'papaparse';
+import React from 'react';
+import { useBuscarEnCSV } from '../hooks/useBuscarEnCSV';
 
 
-export const MedicamentApp = ({ nombreMedicamento }) => {
-
-    const [medicamentos, setMedicamentos] = useState([]);
-
-    useEffect(() => {
-        buscarEnCSV(nombreMedicamento); 
-    }, [nombreMedicamento]);
-
-
-    function buscarEnCSV( datoABuscar ) {
-        Papa.parse("../seed/insumos_medicos.csv", {
-            download: true,
-            header: true,
-            complete: function( results ) {
-                const datos = results.data;
-                // Convertir datoABuscar a minúsculas
-                const datoABuscarMinusculas = datoABuscar.toLowerCase();
-                // Filtrar las filas que contienen la palabra clave en la columna 'descripcion'
-                const filasEncontradas = datos.filter(fila => fila.descripcion && fila.descripcion.toLowerCase().includes(datoABuscarMinusculas));
-                if (filasEncontradas.length > 0) {
-                    setMedicamentos( filasEncontradas );
-                } else {
-                    console.log('No se encontraron filas para la palabra clave proporcionada.');
-                }
-            }
-        });
-    }
-    
+export const MedicamentApp = ({ nombreMedicamento, archivoCSV }) => {
+    const medicamentos = useBuscarEnCSV(archivoCSV, nombreMedicamento);
 
     return (
         <>
             <div className="container">
                 <div className="row">
-                    {medicamentos.map(( medicamento, index ) => (
+                    {medicamentos.map((medicamento, index) => (
                         <div key={index} className="col-md-4 mb-4">
                             <div className="card h-100 d-flex flex-column">
                                 <img src="../img/Quitadol.jpg" className="card-img-top" width="200" height="250" alt="..." />
                                 <div className="card-body">
-                                    <p className="card-text">{ medicamento.descripcion }</p> 
+                                    <p className="card-text">{medicamento.descripcion}</p>
                                 </div>
                                 <div className="card-footer d-flex justify-content-end">
                                     <form className="d-flex" role="search" >
@@ -53,7 +27,5 @@ export const MedicamentApp = ({ nombreMedicamento }) => {
                 </div>
             </div>
         </>
-        
-       
     )
-}
+};
