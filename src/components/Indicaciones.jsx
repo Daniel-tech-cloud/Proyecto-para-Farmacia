@@ -1,6 +1,6 @@
 
 export const Indicaciones = () => {
     return (
-        <div>Indicaciones</div>
+        <div className="container mt-5">Hola</div>
     )
 }

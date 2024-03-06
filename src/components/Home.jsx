@@ -5,7 +5,9 @@ export const Home = () => {
 
     return (
         <>
-            <NavBar />
+            <div className="container mt-5" >
+                Inicio
+            </div>
             
             <hr/> 
             
