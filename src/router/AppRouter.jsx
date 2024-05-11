@@ -1,8 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom"
-import { Home } from "../components/Home"
-import { Indicaciones } from "../components/Indicaciones"
-import { Laboratorios } from "../components/Laboratorios"
-import { NavBar } from "../components/NavBar"
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Home, Indicaciones, Laboratorios, NavBar, } from "../components";
 
 
 export const AppRouter = () => {
@@ -12,7 +9,7 @@ export const AppRouter = () => {
             <Routes>
                 <Route path="home" element={ <Home /> } />
                 <Route path="laboratorios" element={ <Laboratorios /> } />
-                <Route path="indicaciones" element={ <Indicaciones archivoCSV="../seed/medicamentos.csv" /> } />
+                <Route path="indicaciones" element={ <Indicaciones /> } />
                 <Route path="/" element={ <Navigate to="/home"/> } />
             </Routes>
         </>

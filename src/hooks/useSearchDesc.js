@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 
-export const useBuscarEnCSV = (nombreArchivo, datoABuscar) => {
+export const useSearchDesc = (nombreArchivo, datoABuscar) => {
     const [resultados, setResultados] = useState([]);
 
     useEffect(() => {
@@ -10,9 +10,12 @@ export const useBuscarEnCSV = (nombreArchivo, datoABuscar) => {
                 download: true,
                 header: true,
                 complete: function (results) {
-                    const datos = results.data;
+                    const { data } = results; // Desestructuración del objeto results
                     const datoABuscarMinusculas = datoABuscar.toLowerCase();
-                    const filasEncontradas = datos.filter(fila => fila.descripcion && fila.descripcion.toLowerCase().includes(datoABuscarMinusculas));
+                    const filasEncontradas = data.filter(fila => {
+                        const { descripcion } = fila; // Desestructuración de cada fila
+                        return descripcion && descripcion.toLowerCase().includes(datoABuscarMinusculas);
+                    });
                     if (filasEncontradas.length > 0) {
                         setResultados(filasEncontradas);
                     } else {
