@@ -1,0 +1,42 @@
+/* Definición de variables */
+:root {
+    --color-RichBlack: #071013;
+    --color-PacificCyan: #23b5d3;
+    --color-Moonstone: #75abbc;
+    --color-CadetGray: #a2aebb;
+    --color-Platinum: #dfe0e2;
+    --fuentePrincipal: "Tahoma";
+    --fuenteSecundaria: "Sans serif";
+  }
+
+/* Colores de barra de navegación */
+.background-navbar{
+  background-color: var(--color-RichBlack);
+  font-family: var(--fuentePrincipal);
+}
+
+/* Color de fuente */
+
+/* Estilos CSS para los elementos de texto dentro de la barra de navegación */
+.navbar-brand h1,
+.navbar-nav .nav-item .nav-link {
+  color: var(--color-PacificCyan); /* Utiliza la variable de color en ambos elementos */
+}
+
+/* Estilos de h1 */
+
+/* Fuente */
+.font-h1{
+  font-family: var(--fuentePrincipal);
+}
+/* Color de h1 */
+.color-h1 {
+  color: var(--color-PacificCyan);
+}
+
+/* Estilo de tarjetas */
+
+/* Fuente */
+.card-font{
+  font-family: var(--fuentePrincipal);
+}

@@ -1,12 +1,15 @@
 import { useFetch } from '../hooks/useFetch';
 
 export const Laboratorios = () => {
-    const { data } = useFetch('http://localhost:3001/api/data/laboratorios');
+    const { data } = useFetch('http://localhost:3001/api/laboratorios');
     console.log( data );
 
     return (
         <>
-            <h3> Búsqueda por laboratorios: </h3>
+            <div className="container m-2">
+                <h3> Búsqueda por laboratorios: </h3>
+                
+            </div>
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
                 {/* Generar dinámicamente las tarjetas */}

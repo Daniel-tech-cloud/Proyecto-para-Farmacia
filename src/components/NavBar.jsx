@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "../hooks";
 import { MedicamentApp } from "../components";
-
+import '../style.css';
 
 export const NavBar = () => {
 
@@ -21,11 +21,9 @@ export const NavBar = () => {
    
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
+            <nav className="navbar navbar-expand-lg background-navbar rounded-3">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/"> <h1>Farmacia Tlatelolco</h1> </a>
-                
-
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -36,10 +34,7 @@ export const NavBar = () => {
                             <a className="nav-link active" aria-current="page" href="/laboratorios">Laboratorios</a>
                         </li>
                     </ul>
-                    <form onSubmit={ onFormSubmit } className="d-flex" role="search" >
-                        <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" onChange={ onInputChange }/>
-                        <button className="btn btn-outline-success"  type="submit">Buscar</button>
-                    </form>
+                  
                 </div>
             </div>
             </nav>

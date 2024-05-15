@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSearchDesc } from '../hooks/useSearchDesc';
 
 export const MedicamentApp = ({ nombreMedicamento, archivoCSV }) => {
     const navigate = useNavigate(); // Utiliza useNavigate para obtener la función de navegación
@@ -9,8 +8,7 @@ export const MedicamentApp = ({ nombreMedicamento, archivoCSV }) => {
         navigate('/indicaciones'); // Navega a la ruta '/indicaciones' cuando el botón se hace clic
     };
 
-    const data = useSearchDesc(archivoCSV, nombreMedicamento);
-    
+
     // Si la ruta actual es '/indicaciones', no renderizamos el componente MedicamentApp
     if (window.location.pathname === '/indicaciones') {
         return null;
