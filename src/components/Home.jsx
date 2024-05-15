@@ -32,20 +32,22 @@ export const Home = () => {
                 <div className="row">
                     <div className="col-md-4 mb-4">
                         <div className="card border-light">
-                            <img src="../public/img/medicina.png" className="img-fluid align-self-center rounded" alt="..."/>
+                            <img src="../public/img/medicina.png" className="img-fluid align-self-center rounded" alt="medicina"/>
                             <div className="card-body card-font">
-                                <h5 className="card-title">Realizar alguna búsqueda por nombre de medicamento</h5>
-                                <a href="#" className="btn btn-primary w-100"> Ver </a>
+                                <h5 className="card-title">Búsqueda por: </h5>
+                                <h5 className="card-title ms-2">Nombre de medicamento </h5>
+                                <a href="/api/busqueda/medicina" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
                             </div>
                         </div>
                     </div>
 
                     <div className="col-md-4 mb-4">
                         <div className="card border-light">
-                            <img src="../public/img/laboratorio.png" className="card-img-top" alt="..."/>
+                            <img src="../public/img/laboratorio.png" className="img-fluid align-self-center rounded" alt="laboratorio"/>
                             <div className="card-body card-font">
-                                <h5 className="card-title">Realizar alguna búsqueda por laboratorio</h5> 
-                                <a href="#" className="btn btn-primary w-100"> Ver </a>
+                                <h5 className="card-title">Búsqueda por: </h5> 
+                                <h5 className="card-title ms-2">Laboratorio</h5> 
+                                <a href="/api/busqueda/laboratorio" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
                             </div>
                
                         </div>
@@ -53,10 +55,12 @@ export const Home = () => {
 
                     <div className="col-md-4 mb-4">
                         <div className="card border-light">
-                            <img src="../public/img/sustancia.png" className="card-img-top" alt="..."/>
+                            <img src="../public/img/sustancia.png" className="img-fluid align-self-center rounded" alt="sustancia activa"/>
                             <div className="card-body card-font">
-                                <h5 className="card-title"> Realizar alguna búsqueda por sustancia activa </h5>
-                                <a href="#" className="btn btn-primary w-100"> Ver </a>
+                                <h5 className="card-title"> Búsqueda por:  </h5>
+                                <h5 className="card-title ms-2"> Sustancia activa </h5>
+          
+                                <a href="/api/busqueda/sustancia" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
                             </div>
                         </div>
                     </div>

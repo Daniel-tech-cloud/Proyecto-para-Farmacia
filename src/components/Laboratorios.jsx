@@ -2,7 +2,7 @@ import { useFetch } from '../hooks/useFetch';
 
 export const Laboratorios = () => {
     const { data } = useFetch('http://localhost:3001/api/laboratorios');
-    console.log( data );
+    // console.log( data );
 
     return (
         <>

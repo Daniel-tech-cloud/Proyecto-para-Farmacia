@@ -34,9 +34,26 @@
   color: var(--color-PacificCyan);
 }
 
+
+
 /* Estilo de tarjetas */
+
+/* Imágenes */
+.img-size{
+  height: 400px;
+  width: 400px;
+}
+
 
 /* Fuente */
 .card-font{
   font-family: var(--fuentePrincipal);
+}
+
+
+/* Estilo de botones */
+.btn-font{
+  font-family: var(--fuentePrincipal);
+  color: var(--color-RichBlack);
+  font-size: 1.3rem;
 }
