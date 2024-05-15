@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 import '../style.css';
 
 export const Home = () => {
@@ -36,7 +38,10 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title">Búsqueda por: </h5>
                                 <h5 className="card-title ms-2">Nombre de medicamento </h5>
-                                <a href="/api/busqueda/medicina" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
+                                <Link to="/api/busqueda/medicina">
+                                    <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
+                                </Link>        
+                            
                             </div>
                         </div>
                     </div>
@@ -47,7 +52,9 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title">Búsqueda por: </h5> 
                                 <h5 className="card-title ms-2">Laboratorio</h5> 
-                                <a href="/api/busqueda/laboratorio" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
+                                <Link to="/api/busqueda/laboratorio">
+                                    <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
+                                </Link>    
                             </div>
                
                         </div>
@@ -59,8 +66,10 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title"> Búsqueda por:  </h5>
                                 <h5 className="card-title ms-2"> Sustancia activa </h5>
-          
-                                <a href="/api/busqueda/sustancia" className="btn btn-outline-info w-100 btn-font"> Ver más... </a>
+                                <Link to="/api/busqueda/sustancia">
+                                    <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
+                                </Link>
+                               
                             </div>
                         </div>
                     </div>

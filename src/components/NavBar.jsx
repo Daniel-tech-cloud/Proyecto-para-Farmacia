@@ -1,22 +1,21 @@
 import { useState } from "react";
 import { useForm } from "../hooks";
-import { MedicamentApp } from "../components";
 import '../style.css';
 
 export const NavBar = () => {
-    const { medicamento, onInputChange, onResetForm } = useForm({
-        medicamento: '',
-    }); 
+    // const { medicamento, onInputChange, onResetForm } = useForm({
+    //     medicamento: '',
+    // }); 
 
-    const [mostrarMedicamentApp, setMostrarMedicamentApp] = useState(false);
-    const [valorBusqueda, setValorBusqueda] = useState('');
+    // const [mostrarMedicamentApp, setMostrarMedicamentApp] = useState(false);
+    // const [valorBusqueda, setValorBusqueda] = useState('');
 
-    const onFormSubmit = (event) =>{
-        event.preventDefault();
-        setValorBusqueda(medicamento); // Almacena el valor de búsqueda antes de limpiarlo
-        setMostrarMedicamentApp(true); // Cambia el estado para mostrar MedicamentApp
-        onResetForm(); // Limpia el formulario después de almacenar el valor de búsqueda
-    }
+    // const onFormSubmit = (event) =>{
+    //     event.preventDefault();
+    //     setValorBusqueda(medicamento); // Almacena el valor de búsqueda antes de limpiarlo
+    //     setMostrarMedicamentApp(true); // Cambia el estado para mostrar MedicamentApp
+    //     onResetForm(); // Limpia el formulario después de almacenar el valor de búsqueda
+    // }
    
     return (
         <>
@@ -38,12 +37,7 @@ export const NavBar = () => {
                     </div>
                 </div>
             </nav>
-            {mostrarMedicamentApp && (
-                <>
-                    <h3>Búsqueda: { valorBusqueda }</h3>
-                    <MedicamentApp nombreMedicamento={ valorBusqueda } archivoCSV="../seed/insumos_medicos.csv"/>
-                </>
-            )} 
+           
         </>
     )
 }
