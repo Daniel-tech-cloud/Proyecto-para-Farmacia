@@ -28,10 +28,12 @@
 /* Fuente */
 .font-h1{
   font-family: var(--fuentePrincipal);
+  
 }
 /* Color de h1 */
 .color-h1 {
-  color: var(--color-PacificCyan);
+  color: var(--color-RichBlack);
+
 }
 
 

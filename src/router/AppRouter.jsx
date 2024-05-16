@@ -13,9 +13,9 @@ export const AppRouter = () => {
                 <Route path="indicaciones" element={ <Indicaciones /> } />
                 <Route path="/" element={ <Navigate to="/home"/> } />
 
-                <Route path="/api/busqueda/medicina" element={<Busqueda tipo="Medicina" />} />
-                <Route path="/api/busqueda/laboratorio" element={<Busqueda tipo="Laboratorios" />} />
-                <Route path="/api/busqueda/sustancia" element={<Busqueda tipo="Sustancia activa" />} />
+                <Route path="/api/busqueda/medicina" element={<Busqueda tipo="Medicamento" />} />
+                <Route path="/api/busqueda/laboratorio" element={<Busqueda tipo="Laboratorio" />} />
+                <Route path="/api/busqueda/sustancia" element={<Busqueda tipo="Sustancia" />} />
             </Routes>
         </>
     )
