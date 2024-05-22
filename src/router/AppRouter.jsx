@@ -16,6 +16,8 @@ export const AppRouter = () => {
                 <Route path="/api/busqueda/medicina" element={<Busqueda tipo="Medicamento" />} />
                 <Route path="/api/busqueda/laboratorio" element={<Busqueda tipo="Laboratorio" />} />
                 <Route path="/api/busqueda/sustancia" element={<Busqueda tipo="Sustancia" />} />
+
+                <Route path="/api/busqueda/medicina/:id" element={<Indicaciones/>} />
             </Routes>
         </>
     )

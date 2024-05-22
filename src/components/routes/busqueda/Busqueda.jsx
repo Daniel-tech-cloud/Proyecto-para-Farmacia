@@ -1,10 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export const Busqueda = ({ tipo }) => {
   const [datoABuscar, setDatoABuscar] = useState('');
   const [resultados, setResultados] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handleVerMas = (idMedicina) => {
+    navigate(`/api/busqueda/medicina/${idMedicina}`);
+  };
 
   const handleInputChange = (event) => {
     setDatoABuscar(event.target.value);
@@ -57,10 +64,9 @@ export const Busqueda = ({ tipo }) => {
                                 <h5 className="card-title">{item.nombre}</h5>
                                 <p className="card-text">Descripción: {item.descripcion}</p>
                                 
-                                   <button type="submit" className="btn btn-outline-info w-100 btn-font p-1 ms-2"> 
-                                        Ver más
-                                    </button>
-                              
+                                <button type="button" className="btn btn-outline-info w-100 btn-font p-1 ms-2" onClick={() => handleVerMas(item.id)}>
+                                  Ver más
+                                </button>
                             </div>
                         </div>
                     </div>
