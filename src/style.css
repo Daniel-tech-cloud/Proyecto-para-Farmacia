@@ -28,15 +28,8 @@
 /* Fuente */
 .font-h1{
   font-family: var(--fuentePrincipal);
-  
-}
-/* Color de h1 */
-.color-h1 {
   color: var(--color-RichBlack);
-
 }
-
-
 
 /* Estilo de tarjetas */
 
@@ -58,4 +51,33 @@
   font-family: var(--fuentePrincipal);
   color: var(--color-RichBlack);
   font-size: 1.3rem;
+}
+
+/* Estilo para indicaciones */
+.product-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  font-family: var(--fuentePrincipal);
+  color: var(--color-RichBlack);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+}
+.product-info {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.product-title {
+  font-size: 2rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.product-price {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
