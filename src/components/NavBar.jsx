@@ -1,43 +1,33 @@
-import { useState } from "react";
-import { useForm } from "../hooks";
-import '../style.css';
+
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const NavBar = () => {
-    // const { medicamento, onInputChange, onResetForm } = useForm({
-    //     medicamento: '',
-    // }); 
+    const [showMenu, setShowMenu] = useState(false);
 
-    // const [mostrarMedicamentApp, setMostrarMedicamentApp] = useState(false);
-    // const [valorBusqueda, setValorBusqueda] = useState('');
-
-    // const onFormSubmit = (event) =>{
-    //     event.preventDefault();
-    //     setValorBusqueda(medicamento); // Almacena el valor de búsqueda antes de limpiarlo
-    //     setMostrarMedicamentApp(true); // Cambia el estado para mostrar MedicamentApp
-    //     onResetForm(); // Limpia el formulario después de almacenar el valor de búsqueda
-    // }
-   
     return (
-        <>
-            <nav className="navbar navbar-expand-lg background-navbar rounded-3">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/"> <h1>Farmacia Tlatelolco</h1> </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/laboratorios">Laboratorios</a>
-                            </li>
-                        </ul>
-                    </div>
+        <nav className="navbar navbar-expand-lg background-navbar rounded-3">
+            <div className="container-fluid">
+                <NavLink className="navbar-brand d-flex align-items-center" to="/">
+                    <img src="/public/img/logo.png" alt="Logo" className="img-logo img-fluid" />
+                    <h1 className="m-0">Farmacia Tlatelolco</h1>
+                </NavLink>
+
+                <button className="navbar-toggler" type="button" onClick={() => setShowMenu(!showMenu)}>
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className={`collapse navbar-collapse ${showMenu ? 'show' : ''} text-center`}>
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 navbar-font">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active" exact to="/">Inicio</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active" to="/laboratorios">Laboratorios</NavLink>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-           
-        </>
+            </div>
+        </nav>
     )
 }

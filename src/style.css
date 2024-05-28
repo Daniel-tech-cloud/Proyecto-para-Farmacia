@@ -15,12 +15,34 @@
   font-family: var(--fuentePrincipal);
 }
 
+.img-logo{
+    max-width: 75px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.navbar-toggler {
+  background-color: var(--color-Platinum); /* Color de fondo negro */
+  color: var(--color-Platinum); /* Color de texto cian pacífico */
+  font-size: 1.3rem; /* Cambia el tamaño del icono de la hamburguesa */
+}
+
+.navbar-toggler-icon {
+  background-color: var(--color-Platinum); /* Color de fondo del icono blanco */
+}
+
+/* Fuente de barra de navegación */
+.navbar-font{
+  font-family: var(--fuentePrincipal);
+  font-size: 1.1rem;
+}
+
 /* Color de fuente */
 
 /* Estilos CSS para los elementos de texto dentro de la barra de navegación */
 .navbar-brand h1,
 .navbar-nav .nav-item .nav-link {
-  color: var(--color-PacificCyan); /* Utiliza la variable de color en ambos elementos */
+  color: var(--color-Platinum); /* Utiliza la variable de color en ambos elementos */
 }
 
 /* Estilos de h1 */
@@ -80,4 +102,36 @@
 .product-price {
   font-size: 2rem;
   margin-bottom: 20px;
+}
+
+/* Media queries */
+@media (max-width: 576px) {
+  .img-logo {
+      max-width: 50px;  /* Tamaño más pequeño para pantallas pequeñas */
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media screen and (min-width: 992px) {
+  /* Estilos específicos para la barra de navegación en pantallas grandes */
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 991px) {
+  /* Estilos específicos para la barra de navegación en pantallas pequeñas */
+  .navbar-nav {
+      flex-direction: column;
+  }
+
+  .navbar-toggler {
+      display: block;
+  }
+
+  .navbar-collapse {
+      display: none;
+  }
+
+  .navbar-collapse.show {
+      display: block;
+  }
 }

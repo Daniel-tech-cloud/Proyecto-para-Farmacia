@@ -1,4 +1,5 @@
 export * from './Home';
-export * from './routes/busqueda/Indicaciones';
 export * from './NavBar';
 export * from './Laboratorios';
+export * from './routes/busqueda/Busqueda';
+export * from './routes/busqueda/Indicaciones';

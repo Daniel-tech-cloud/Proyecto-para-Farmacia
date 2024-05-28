@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Home, Indicaciones, Laboratorios, NavBar, } from "../components";
-import { Busqueda } from '../components/routes/busqueda';
+import { Home, Indicaciones, Busqueda, Laboratorios, NavBar, } from "../components";
+
 
 
 export const AppRouter = () => {
