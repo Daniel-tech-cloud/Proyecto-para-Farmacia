@@ -41,18 +41,19 @@ export const Indicaciones = () => {
             <img src="/../public/img/medicamento.png" className="img-fluid product-image rounded" alt="Medicamento" />
           </div>
           <div className="col-md-8">
-            <div className="product-info">
-              <h2 className="product-title">{data.nombre}</h2>
-              <p className="product-price">$ {data.precioVenta}</p>
-              <p>Descripción: {data.descripcion}</p>
-              <p>Cantidad: {data.cantidad}</p>
-              <p>Fecha de caducidad: {data.caducidad.slice(0, 10)}</p>
-              <div className="mb-5">
-                <p>Indicaciones:</p>
-                <FontAwesomeIcon icon={faClock} /> <span>{data.indicaciones}</span>
+              <div className="product-info">
+                <h2 className="product-title">{ data.nombre }</h2>
+                <p className="product-price">$ { data.precioVenta }</p>
+                <p> Descripción: { data.descripcion } </p>
+                <p> Cantidad: { data.cantidad }</p>
+                <p> Fecha de caducidad: { data.caducidad.slice(0, 10) }</p>
+                <p> Laboratorio: { data.nombreLaboratorio } </p>
+                <div className="mb-5">
+                  <p>Indicaciones:</p>
+                  <FontAwesomeIcon icon={ faClock } /> <span>{ data.indicaciones }</span>
+                </div>
+                <button className="btn btn-outline-info w-100 btn-font p-1 ms-2">Comprar</button>
               </div>
-              <button className="btn btn-outline-info w-100 btn-font p-1 ms-2">Comprar</button>
-            </div>
           </div>
         </div>
       </div>

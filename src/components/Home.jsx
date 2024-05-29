@@ -37,7 +37,7 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title">Búsqueda por: </h5>
                                 <h5 className="card-title ms-2">Nombre de medicamento </h5>
-                                <Link to="/api/busqueda/medicina">
+                                <Link to="/busqueda/medicina">
                                     <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
                                 </Link>        
                             
@@ -51,7 +51,7 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title">Búsqueda por: </h5> 
                                 <h5 className="card-title ms-2">Laboratorio</h5> 
-                                <Link to="/api/busqueda/laboratorio">
+                                <Link to="/busqueda/laboratorio">
                                     <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
                                 </Link>    
                             </div>
@@ -65,7 +65,7 @@ export const Home = () => {
                             <div className="card-body card-font">
                                 <h5 className="card-title"> Búsqueda por:  </h5>
                                 <h5 className="card-title ms-2"> Sustancia activa </h5>
-                                <Link to="/api/busqueda/sustancia">
+                                <Link to="/busqueda/sustancia">
                                     <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
                                 </Link>
                                

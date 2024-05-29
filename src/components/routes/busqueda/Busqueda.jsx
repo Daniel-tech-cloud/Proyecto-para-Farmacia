@@ -9,8 +9,16 @@ export const Busqueda = ({ tipo }) => {
 
   const navigate = useNavigate();
 
-  const handleVerMas = (idMedicina) => {
-    navigate(`/api/busqueda/medicina/${idMedicina}`);
+  const handleVerIndicaciones = (idMedicina) => {
+    navigate(`/busqueda/medicina/${ idMedicina }`);
+  };
+
+  const handleVerLaboratorio = (idLaboratorio) => {
+    navigate(`/busqueda/laboratorio/${ idLaboratorio }`);
+  };
+
+  const handleVerSustancia = (idSustancia) => {
+    navigate(`/busqueda/sustancia/${ idSustancia }`);
   };
 
   const handleInputChange = (event) => {
@@ -63,10 +71,37 @@ export const Busqueda = ({ tipo }) => {
                             <div className="card-body card-font">
                                 <h5 className="card-title">{item.nombre}</h5>
                                 <p className="card-text">Descripción: {item.descripcion}</p>
+
+                                {/* Condición para mostrar el botón de indicaciones */}
+                                {tipo === 'Medicamento' && (
+                                  <button
+                                    type="button"
+                                    className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
+                                    onClick={() => handleVerIndicaciones(item.id)}
+                                  >
+                                    Indicaciones
+                                  </button>
+                                )}
                                 
-                                <button type="button" className="btn btn-outline-info w-100 btn-font p-1 ms-2" onClick={() => handleVerMas(item.id)}>
-                                  Ver más
-                                </button>
+                                {tipo === 'Laboratorio' && (
+                                  <button
+                                    type="button"
+                                    className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
+                                    onClick={() => handleVerLaboratorio(item.id)}
+                                  >
+                                    Laboratorio
+                                  </button>
+                                )}
+                                {tipo === 'Sustancia' && (
+                                  <button
+                                    type="button"
+                                    className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
+                                    onClick={() => handleVerSustancia(item.id)}
+                                  >
+                                    sustancias
+                                  </button>
+                                )}
+                                
                             </div>
                         </div>
                     </div>
