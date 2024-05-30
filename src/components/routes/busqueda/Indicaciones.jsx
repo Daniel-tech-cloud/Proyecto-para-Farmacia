@@ -34,8 +34,8 @@ export const Indicaciones = () => {
 
   return (
     <>
-      <div className="container">
-        <h1 className="font-h1 mt-4">Indicaciones</h1>
+      <div className="container mt-5 mb-5">
+        <h1 className="font-h1 mt-4"> <small className="text-body">  Indicaciones </small> </h1>
         <div className="row">
           <div className="col-md-4">
             <img src="/../public/img/medicamento.png" className="img-fluid product-image rounded" alt="Medicamento" />

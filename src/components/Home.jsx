@@ -23,7 +23,7 @@ export const Home = () => {
 
     return (
         <>
-            <div className="container m-2">
+            <div className="container mt-5 mb-">
                 <h1 className="color-h1 font-h1">
                     <small className="text-body">{ obtenerSaludo() }</small>
                 </h1>

@@ -18,7 +18,7 @@ export const NavBar = () => {
                     </button>
 
                     <div className={`collapse navbar-collapse ${showMenu ? 'show' : ''}`}>
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 navbar-font">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 navbar-font d-flex align-items-center">
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/">Inicio</a>
                             </li>

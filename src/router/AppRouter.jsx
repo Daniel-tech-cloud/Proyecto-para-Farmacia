@@ -18,8 +18,8 @@ export const AppRouter = () => {
 
                 <Route path="busqueda/medicina/:id" element={<Indicaciones />} />
 
-                <Route path="busqueda/laboratorio/:id" element={<Informacion />} />
-                <Route path="busqueda/sustancia/:id" element={<Informacion />} />
+                <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorio" />} />
+                <Route path="busqueda/sustancia/:id" element={<Informacion tipo="Sustancia" />} />
 
                 <Route path="*" element={ <Navigate to="/home" />} /> {/* Redirige a home si la ruta no coincide */}
             </Routes>

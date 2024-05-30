@@ -42,7 +42,7 @@ export const Busqueda = ({ tipo }) => {
         <div className="container mt-5">
             <div className="col">
                 <div className="row">
-                    <h1 className="color-h1 font-h1"> Búsqueda por: {tipo} </h1>
+                   <h1 className="color-h1 font-h1"> <small className="text-body"> Búsqueda por: {tipo} </small> </h1>
                 </div>
             </div>
             
