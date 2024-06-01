@@ -21,8 +21,15 @@ export const Busqueda = ({ tipo }) => {
     navigate(`/busqueda/sustancia/${ idSustancia }`);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = async (event) => {
     setDatoABuscar(event.target.value);
+    try {
+      const response = await fetch(`http://localhost:3001/api/busqueda/${tipo}?dato=${datoABuscar}`);
+      const data = await response.json();
+      setResultados(data);
+    } catch (error) {
+      console.error('Error al realizar la búsqueda:', error);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -53,7 +60,9 @@ export const Busqueda = ({ tipo }) => {
                       className="form-control" 
                       value={datoABuscar} 
                       onChange={handleInputChange} 
-                      placeholder={`Ejemplo: ${tipo}`}
+                      placeholder={`Ejemplo: ${tipo}`
+
+                    }
                     />
                     <button type="submit" className="btn btn-primary p-3 ms-2"> 
                         <FontAwesomeIcon icon={faSearch} />
@@ -89,7 +98,7 @@ export const Busqueda = ({ tipo }) => {
                                     className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
                                     onClick={() => handleVerLaboratorio(item.id)}
                                   >
-                                    Laboratorio
+                                    Ver más
                                   </button>
                                 )}
                                 {tipo === 'Sustancia' && (
@@ -98,7 +107,7 @@ export const Busqueda = ({ tipo }) => {
                                     className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
                                     onClick={() => handleVerSustancia(item.id)}
                                   >
-                                    sustancias
+                                    Ver más
                                   </button>
                                 )}
                                 

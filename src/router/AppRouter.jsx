@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home,  Busqueda, Indicaciones, Informacion, Laboratorios, NavBar } from "../components";
+import { BusquedaChatGPT } from "../components/routes/busqueda/BusquedaChatGPT";
 
 export const AppRouter = () => {
     return (
@@ -20,6 +21,8 @@ export const AppRouter = () => {
 
                 <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorio" />} />
                 <Route path="busqueda/sustancia/:id" element={<Informacion tipo="Sustancia" />} />
+
+                <Route path="busqueda/chatGPT" element={<BusquedaChatGPT  />} />
 
                 <Route path="*" element={ <Navigate to="/home" />} /> {/* Redirige a home si la ruta no coincide */}
             </Routes>
