@@ -1,6 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Home,  Busqueda, Indicaciones, Informacion, Laboratorios, NavBar } from "../components";
-import { BusquedaChatGPT } from "../components/routes/busqueda/BusquedaChatGPT";
+import { Home, NavBar, Laboratorios } from "../components";
+import { RegistroUsuario } from "../components/routes/user";
+
+import {  Busqueda,  Informacion, Indicaciones } from "../components/routes/busqueda";
+
+
+
 
 export const AppRouter = () => {
     return (
@@ -9,9 +14,10 @@ export const AppRouter = () => {
             <Routes>
                 <Route path="home" element={ <Home /> } />
                 <Route path="laboratorios" element={ <Laboratorios /> } />
-                <Route path="indicaciones" element={ <Indicaciones /> } />
                 
-                <Route path="/" element={ <Navigate to="/home"/> } />
+                <Route path="*" element={ <Navigate to="/home" />} /> {/* Redirige a home si la ruta no coincide */}
+
+                <Route path="registro" element={ <RegistroUsuario /> } />
 
                 <Route path="busqueda/medicina" element={<Busqueda tipo="Medicamento" />} />
                 <Route path="busqueda/laboratorio" element={<Busqueda tipo="Laboratorio" />} />
@@ -22,9 +28,8 @@ export const AppRouter = () => {
                 <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorio" />} />
                 <Route path="busqueda/sustancia/:id" element={<Informacion tipo="Sustancia" />} />
 
-                <Route path="busqueda/chatGPT" element={<BusquedaChatGPT  />} />
 
-                <Route path="*" element={ <Navigate to="/home" />} /> {/* Redirige a home si la ruta no coincide */}
+                
             </Routes>
         </>
     );
