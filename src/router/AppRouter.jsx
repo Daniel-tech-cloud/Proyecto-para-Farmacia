@@ -1,11 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home, NavBar, Laboratorios } from "../components";
 import { RegistroUsuario } from "../components/routes/user";
-
 import {  Busqueda,  Informacion, Indicaciones } from "../components/routes/busqueda";
-
-
-
 
 export const AppRouter = () => {
     return (

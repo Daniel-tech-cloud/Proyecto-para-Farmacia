@@ -37,6 +37,7 @@
   font-size: 1.1rem;
 }
 
+
 /* Color de fuente */
 
 /* Estilos CSS para los elementos de texto dentro de la barra de navegación */
@@ -45,6 +46,11 @@
   color: var(--color-Platinum); /* Utiliza la variable de color en ambos elementos */
 }
 
+.navbar-brand span{
+  color: var(--color-Platinum); /* Utiliza la variable de color en ambos elementos */
+  font-size: 1.5rem;
+  
+}
 /* Estilos de h1 */
 
 /* Fuente */

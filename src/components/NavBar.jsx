@@ -27,7 +27,19 @@ export const NavBar = () => {
                             </li>
                         </ul>
                     </div>
+
                 </div>
+                <div className="navbar-brand">
+                    <span>
+                        Daniel Barrera {/* Cambiar usuario  */}
+                    </span>
+
+                    <button className=" ms-3 btn btn-outline-danger">
+                        <i className="fas fa-sign-out-alt"> </i>
+                        Salir
+                    </button>
+                </div>
+
             </nav>
         </>
     )
