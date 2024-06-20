@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home, NavBar, Laboratorios } from "../components";
-import { RegistroUsuario } from "../components/routes/user";
+import { RegistroUsuario, Login } from "../components/routes/user";
 import {  Busqueda,  Informacion, Indicaciones } from "../components/routes/busqueda";
+
 
 export const AppRouter = () => {
     return (
@@ -10,8 +11,10 @@ export const AppRouter = () => {
             <Routes>
                 <Route path="home" element={ <Home /> } />
                 <Route path="laboratorios" element={ <Laboratorios /> } />
+                <Route path="login" element={ <Login /> } />
                 
-                <Route path="*" element={ <Navigate to="/home" />} /> {/* Redirige a home si la ruta no coincide */}
+                <Route path="*" element={ <Navigate to="/login" />} /> {/* Redirige a home si la ruta no coincide */}
+
 
                 <Route path="registro" element={ <RegistroUsuario /> } />
 

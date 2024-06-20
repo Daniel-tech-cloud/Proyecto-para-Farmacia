@@ -110,6 +110,86 @@
   margin-bottom: 20px;
 }
 
+/* Estilo form login */
+.bg-rich-black {
+  background-color: var(--color-RichBlack);
+  }
+  
+  .text-cadet-gray {
+  color: var(--color-CadetGray);
+  }
+  
+  .text-platinum {
+  color: var(--color-Platinum);
+  }
+  
+  .bg-moonstone {
+  background-color: var(--color-Moonstone);
+  }
+  
+  .bg-pacific-cyan {
+  background-color: var(--color-PacificCyan);
+  }
+  
+  .hover\:bg-dark-pacific-cyan:hover {
+  background-color: #1c95b0; /* Darker shade of PacificCyan */
+  }
+  
+  .focus\:ring-pacific-cyan:focus {
+  border-color: var(--color-PacificCyan);
+  box-shadow: 0 0 0 0.2rem rgba(35, 181, 211, 0.25);
+  }
+  
+  .w-100 {
+  width: 100%;
+  }
+  
+  .max-w-md {
+  max-width: 28rem;
+  }
+  
+  .p-8 {
+  padding: 2rem;
+  }
+  
+  .space-y-4 > :not(:last-child) {
+  margin-bottom: 1rem;
+  }
+  
+  .rounded-lg {
+  border-radius: 0.5rem;
+  }
+  
+  .form-group {
+  margin-bottom: 1rem;
+  }
+  
+  .mb-1 {
+  margin-bottom: 0.25rem;
+  }
+  
+  .text-sm {
+  font-size: 0.875rem;
+  }
+  
+  .font-medium {
+  font-weight: 500;
+  }
+  
+  .btn-primary {
+  background-color: var(--color-PacificCyan);
+  border: none;
+  color: var(--color-RichBlack);
+  }
+  
+  .btn-primary:hover {
+  background-color: #1c95b0;
+  }
+  
+  .vh-100 {
+  height: 100vh;
+  }
+  
 /* Media queries */
 @media (max-width: 576px) {
   .img-logo {

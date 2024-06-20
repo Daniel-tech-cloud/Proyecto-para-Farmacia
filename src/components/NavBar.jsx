@@ -31,11 +31,12 @@ export const NavBar = () => {
                 </div>
                 <div className="navbar-brand">
                     <span>
-                        Daniel Barrera {/* Cambiar usuario  */}
+                        Daniel Barrera {/*  // TODO: Validar usuario */}
+                                        {/*  // TODO: Arreglar fondo de navbar */}
                     </span>
 
                     <button className=" ms-3 btn btn-outline-danger">
-                        <i className="fas fa-sign-out-alt"> </i>
+                        <i className="fas fa-sign-out-alt"> </i> {/*  // TODO: Agregar íconos fa*/}
                         Salir
                     </button>
                 </div>
