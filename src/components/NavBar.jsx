@@ -1,8 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 import '../style.css';
 
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
+    
+    const isAuthenticated = () => {
+        
+    }
 
     return (
         <>
@@ -20,7 +28,7 @@ export const NavBar = () => {
                     <div className={`collapse navbar-collapse ${showMenu ? 'show' : ''}`}>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 navbar-font d-flex align-items-center">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">Inicio</a>
+                                <a className="nav-link active" aria-current="page" href="/home">Inicio</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/laboratorios">Laboratorios</a>
@@ -35,9 +43,8 @@ export const NavBar = () => {
                                         {/*  // TODO: Arreglar fondo de navbar */}
                     </span>
 
-                    <button className=" ms-3 btn btn-outline-danger">
-                        <i className="fas fa-sign-out-alt"> </i> {/*  // TODO: Agregar íconos fa*/}
-                        Salir
+                    <button className="ms-3 btn btn-outline-danger">
+                        <FontAwesomeIcon icon={faSignOutAlt} /> Salir
                     </button>
                 </div>
 
