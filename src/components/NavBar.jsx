@@ -14,7 +14,7 @@ export const NavBar = () => {
 
     return (
         <>
-           <nav className="navbar navbar-expand-lg background-navbar rounded-3">
+            <nav className="navbar navbar-expand-lg background-navbar rounded-3">
                 <div className="container-fluid">
                     <a className="navbar-brand d-flex align-items-center" href="/">
                         <img src="/public/img/logo.png" alt="Logo" className="img-logo img-fluid" />

@@ -10,16 +10,16 @@ export const Login = () => {
           </div>
           <form className="space-y-4">
             <div className="form-group">
-              <label htmlFor="email" className="mb-1 text-sm font-medium text-cadet-gray">Email</label>
+              <label htmlFor="email" className="mb-1 text-sm font-medium text-cadet-gray">Correo electrónico</label>
               <input
                 id="email"
                 type="email"
-                placeholder="algo@gmai.com"
+                placeholder="Ingresa tu correo electrónico"
                 className="form-control rounded-md focus:outline-none focus:ring-2 focus:ring-pacific-cyan focus:border-pacific-cyan"
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password" className="mb-1 text-sm font-medium text-cadet-gray">Password</label>
+              <label htmlFor="password" className="mb-1 text-sm font-medium text-cadet-gray">Contraseña</label>
               <input
                 id="password"
                 type="password"
