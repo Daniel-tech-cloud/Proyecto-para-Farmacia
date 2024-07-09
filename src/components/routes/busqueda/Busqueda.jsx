@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { log } from '@tensorflow/tfjs';
 
 export const Busqueda = ({ tipo }) => {
     const [datoABuscar, setDatoABuscar] = useState('');
@@ -31,16 +32,25 @@ export const Busqueda = ({ tipo }) => {
         try {
             const response = await fetch(`http://localhost:3001/api/events/search/${tipo}/search?nombre=${datoABuscar}`);
             const data = await response.json();
-            
-            // Verificar si la respuesta tiene la propiedad 'medicamentos'
-            if (data && data.medicamentos) {
-                setResultados(data.medicamentos);
+            console.log(data);
+    
+            // Mapea el tipo de búsqueda a la propiedad correspondiente en la respuesta
+            const tipoRespuestaMap = {
+                'Medicamentos': 'medicamentos',
+                'Laboratorios': 'laboratorios',
+                'Sustancias': 'sustancias'
+            };
+    
+            const resultadosKey = tipoRespuestaMap[tipo];
+    
+            // Verifica si la respuesta tiene la propiedad correspondiente
+            if (data && data[resultadosKey]) {
+                setResultados(data[resultadosKey]);
             } else {
                 setResultados([]);
             }
         } catch (error) {
             console.error('Error al realizar la búsqueda:', error);
-            // Puedes manejar el error aquí como consideres necesario
         }
     };
 
@@ -72,6 +82,7 @@ export const Busqueda = ({ tipo }) => {
             <div className="container mt-5">
                 <div className="row">
                     {resultados && resultados.map((item) => (
+                        
                         <div className="col-md-4 mb-4" key={item.id}>
                             <div className="card border-light">
                                 <div className="card-body card-font">
@@ -79,7 +90,7 @@ export const Busqueda = ({ tipo }) => {
                                     <p className="card-text">Descripción: {item.descripcion}</p>
 
                                     {/* Condición para mostrar el botón adecuado */}
-                                    {tipo === 'Medicamento' && (
+                                    {tipo === 'Medicamentos' && (
                                         <button
                                             type="button"
                                             className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
@@ -89,7 +100,7 @@ export const Busqueda = ({ tipo }) => {
                                         </button>
                                     )}
                                     
-                                    {tipo === 'Laboratorio' && (
+                                    {tipo === 'Laboratorios' && (
                                         <button
                                             type="button"
                                             className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
@@ -99,7 +110,7 @@ export const Busqueda = ({ tipo }) => {
                                         </button>
                                     )}
                                     
-                                    {tipo === 'Sustancia' && (
+                                    {tipo === 'Sustancias' && (
                                         <button
                                             type="button"
                                             className="mt-2 btn btn-outline-info w-100 btn-font p-1 ms-2"
