@@ -72,7 +72,7 @@ export const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-primary w-100 px-4 py-2 font-medium text-rich-black bg-pacific-cyan rounded-md hover:bg-dark-pacific-cyan focus:outline-none focus:ring-2 focus:ring-pacific-cyan focus:ring-offset-2"
+                        className="btn-custom"
                     >
                         Acceder
                     </button>

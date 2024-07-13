@@ -5,13 +5,12 @@ export const Laboratorios = () => {
 
     return (
         <>
-            {
-                isLoading && (<h2> Cargando... </h2>)
-            }
             
             <div className="container mt-5">
                 <h1 className="font-h1"> <small className="text-body"> Ver laboratorios: </small> </h1> 
-                
+                {
+                    isLoading && (<h2> Cargando... </h2>)
+                }
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
 
                     {/* Verificar si data es null antes de mapear*/}
