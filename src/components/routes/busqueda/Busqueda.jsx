@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { log } from '@tensorflow/tfjs';
+
 
 export const Busqueda = ({ tipo }) => {
     const [datoABuscar, setDatoABuscar] = useState('');
@@ -32,17 +32,15 @@ export const Busqueda = ({ tipo }) => {
         try {
             const response = await fetch(`http://localhost:3001/api/events/search/${tipo}/search?nombre=${datoABuscar}`);
             const data = await response.json();
-            console.log(data);
-    
+            
             // Mapea el tipo de búsqueda a la propiedad correspondiente en la respuesta
             const tipoRespuestaMap = {
                 'Medicamentos': 'medicamentos',
                 'Laboratorios': 'laboratorios',
                 'Sustancias': 'sustancias'
             };
-    
+
             const resultadosKey = tipoRespuestaMap[tipo];
-    
             // Verifica si la respuesta tiene la propiedad correspondiente
             if (data && data[resultadosKey]) {
                 setResultados(data[resultadosKey]);

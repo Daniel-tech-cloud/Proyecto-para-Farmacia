@@ -1,92 +1,80 @@
 /* Definición de variables */
 :root {
-    --color-RichBlack: #071013;
-    --color-PacificCyan: #23b5d3;
-    --color-Moonstone: #75abbc;
-    --color-CadetGray: #a2aebb;
-    --color-Platinum: #dfe0e2;
-    --fuentePrincipal: "Tahoma";
-    --fuenteSecundaria: "Sans serif";
-  }
-
-/* Colores de barra de navegación */
-.background-navbar{
-  background-color: var(--color-RichBlack);
-  font-family: var(--fuentePrincipal);
+  --color-RichBlack: #071013;
+  --color-PacificCyan: #23b5d3;
+  --color-Moonstone: #75abbc;
+  --color-CadetGray: #a2aebb;
+  --color-Platinum: #dfe0e2;
+  --fuentePrincipal: "Tahoma";
+  --fuenteSecundaria: "Sans serif";
 }
 
-.img-logo{
-    max-width: 75px;
-    height: auto;
-    margin-right: 15px;
-}
-
-.navbar-toggler {
-  background-color: var(--color-Platinum); /* Color de fondo negro */
-  color: var(--color-Platinum); /* Color de texto cian pacífico */
-  font-size: 1.3rem; /* Cambia el tamaño del icono de la hamburguesa */
-}
-
-.navbar-toggler-icon {
-  background-color: var(--color-Platinum); /* Color de fondo del icono blanco */
-}
-
-/* Fuente de barra de navegación */
-.navbar-font{
-  font-family: var(--fuentePrincipal);
-  font-size: 1.1rem;
-}
-
-
-/* Color de fuente */
-
-/* Estilos CSS para los elementos de texto dentro de la barra de navegación */
-.navbar-brand h1,
-.navbar-nav .nav-item .nav-link {
-  color: var(--color-Platinum); /* Utiliza la variable de color en ambos elementos */
-}
-
-.navbar-brand span{
-  color: var(--color-Platinum); /* Utiliza la variable de color en ambos elementos */
-  font-size: 1.5rem;
-  
-}
-/* Estilos de h1 */
-
-/* Fuente */
-.font-h1{
+/* Estilos generales */
+body {
   font-family: var(--fuentePrincipal);
   color: var(--color-RichBlack);
 }
 
-/* Estilo de tarjetas */
+.background-navbar {
+  background-color: var(--color-RichBlack);
+}
 
-/* Imágenes */
-.img-size{
+.img-logo {
+  max-width: 75px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.navbar-toggler {
+  background-color: var(--color-Platinum);
+  color: var(--color-Platinum);
+  font-size: 1.3rem;
+}
+
+.navbar-toggler-icon {
+  background-color: var(--color-Platinum);
+}
+
+.navbar-font {
+  font-family: var(--fuentePrincipal);
+  font-size: 1.1rem;
+}
+
+.navbar-brand h1,
+.navbar-nav .nav-item .nav-link {
+  color: var(--color-Platinum);
+}
+
+.navbar-brand span {
+  color: var(--color-Platinum);
+  font-size: 1.5rem;
+}
+
+.font-h1 {
+  font-family: var(--fuentePrincipal);
+  color: var(--color-RichBlack);
+}
+
+.img-size {
   height: 400px;
   width: 400px;
 }
 
-
-/* Fuente */
-.card-font{
+.card-font {
   font-family: var(--fuentePrincipal);
 }
 
-
-/* Estilo de botones */
-.btn-font{
+.btn-font {
   font-family: var(--fuentePrincipal);
   color: var(--color-RichBlack);
   font-size: 1.3rem;
 }
 
-/* Estilo para indicaciones */
 .product-container {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: var(--color-Platinum);
   border-radius: 10px;
   font-family: var(--fuentePrincipal);
   color: var(--color-RichBlack);
@@ -96,115 +84,179 @@
   width: 100%;
   height: auto;
 }
+
 .product-info {
   text-align: center;
   font-size: 1.5rem;
 }
+
 .product-title {
   font-size: 2rem;
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
 .product-price {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-/* Estilo form login */
 .bg-rich-black {
   background-color: var(--color-RichBlack);
-  }
-  
-  .text-cadet-gray {
+}
+
+.text-cadet-gray {
   color: var(--color-CadetGray);
-  }
-  
-  .text-platinum {
+}
+
+.text-platinum {
   color: var(--color-Platinum);
-  }
-  
-  .bg-moonstone {
+}
+
+.bg-moonstone {
   background-color: var(--color-Moonstone);
-  }
-  
-  .bg-pacific-cyan {
+}
+
+.bg-pacific-cyan {
   background-color: var(--color-PacificCyan);
-  }
-  
-  .hover\:bg-dark-pacific-cyan:hover {
-  background-color: #1c95b0; /* Darker shade of PacificCyan */
-  }
-  
-  .focus\:ring-pacific-cyan:focus {
+}
+
+.hover\:bg-dark-pacific-cyan:hover {
+  background-color: #1c95b0;
+}
+
+.focus\:ring-pacific-cyan:focus {
   border-color: var(--color-PacificCyan);
   box-shadow: 0 0 0 0.2rem rgba(35, 181, 211, 0.25);
-  }
-  
-  .w-100 {
+}
+
+.w-100 {
   width: 100%;
-  }
-  
-  .max-w-md {
+}
+
+.max-w-md {
   max-width: 28rem;
-  }
-  
-  .p-8 {
+}
+
+.p-8 {
   padding: 2rem;
-  }
-  
-  .space-y-4 > :not(:last-child) {
+}
+
+.space-y-4 > :not(:last-child) {
   margin-bottom: 1rem;
-  }
-  
-  .rounded-lg {
+}
+
+.rounded-lg {
   border-radius: 0.5rem;
-  }
-  
-  .form-group {
+}
+
+.form-group {
   margin-bottom: 1rem;
-  }
-  
-  .mb-1 {
+}
+
+.mb-1 {
   margin-bottom: 0.25rem;
-  }
-  
-  .text-sm {
+}
+
+.text-sm {
   font-size: 0.875rem;
-  }
-  
-  .font-medium {
+}
+
+.font-medium {
   font-weight: 500;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
   background-color: var(--color-PacificCyan);
   border: none;
   color: var(--color-RichBlack);
-  }
-  
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
   background-color: #1c95b0;
-  }
-  
-  .vh-100 {
+}
+
+.vh-100 {
   height: 100vh;
-  }
+}
+
+/* Estilos del formulario */
+.bg-form {
+  background-color: var(--color-RichBlack);
+  color: var(--color-Platinum);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.bg-form .font-title{
   
+  font-family: var(--fuentePrincipal);
+  color: var(--color-PacificCyan);
+
+}
+
+.bg-form .form-label {
+  color: var(--color-CadetGray);
+}
+
+.bg-form .form-control {
+  background-color: var(--color-Platinum);
+  color: var(--color-RichBlack);
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.bg-form .form-control::placeholder {
+  color: var(--color-CadetGray);
+}
+
+.bg-form .form-select {
+  background-color: var(--color-Platinum);
+  color: var(--color-RichBlack);
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.bg-form .form-select option {
+  color: var(--color-RichBlack);
+}
+
+.bg-form .btn-submit {
+  background-color: var(--color-PacificCyan);
+  color: var(--color-RichBlack);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+.bg-form .btn-submit:hover {
+  background-color: var(--color-PacificCyan);
+}
+
+.bg-form .font-form {
+  font-family: var(--fuentePrincipal);
+  color: var(--color-Platinum);
+}
+
+.bg-form .font-ddl {
+  font-family: var(--fuentePrincipal);
+  color: var(--color-RichBlack);
+}
+
 /* Media queries */
 @media (max-width: 576px) {
   .img-logo {
-      max-width: 50px;  /* Tamaño más pequeño para pantallas pequeñas */
+      max-width: 50px;
   }
 }
 
-/* Estilos para pantallas grandes */
 @media screen and (min-width: 992px) {
   /* Estilos específicos para la barra de navegación en pantallas grandes */
 }
 
-/* Estilos para pantallas pequeñas */
 @media screen and (max-width: 991px) {
-  /* Estilos específicos para la barra de navegación en pantallas pequeñas */
   .navbar-nav {
       flex-direction: column;
   }

@@ -55,7 +55,6 @@ export const Home = () => {
                                     <button className="btn btn-outline-info w-100 btn-font">Ver más...</button>
                                 </Link>    
                             </div>
-               
                         </div>
                     </div>
 

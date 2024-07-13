@@ -3,7 +3,6 @@ import { useFetch } from '../hooks/useFetch';
 export const Laboratorios = () => {
     const { data, isLoading } = useFetch('http://localhost:3001/api/events/search/laboratorios/');
 
-
     return (
         <>
             {
