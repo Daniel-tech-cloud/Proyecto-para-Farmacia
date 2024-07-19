@@ -65,7 +65,7 @@ export const NavBar = () => {
                         </>
                     ) : (
                         !isLoginPage && (
-                            <Link to="/login" className="btn btn-outline-primary">
+                            <Link to="/login" className="btn btn-outline-success">
                                 Iniciar Sesión
                             </Link>
                         )
