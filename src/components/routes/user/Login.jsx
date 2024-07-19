@@ -1,40 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useUser } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-
     const [email, setEmail] = useState('');
-    const [pass, setPassword] = useState('');
+    const [password, setPassword] = useState('');
+    const { user, setUser } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Redirige a la página de inicio si el usuario ya está autenticado
+        if (user) {
+            navigate("/home");
+        }
+    }, [user, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const response = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, pass })
+                body: JSON.stringify({
+                    email: email,
+                    pass: password
+                }),
             });
 
-            const data = await response.json();
-            console.log(data);
-
             if (response.ok) {
-                // Guardar token en localStorage o sessionStorage
-                // localStorage.setItem('token', data.token); // Ejemplo: Guarda el token en localStorage
-
-                // TODO Implementar context y actualizar el contexto con los datos del usuario en navbar  
-
-                // TODO Redirigir a la página de inicio
-
-              
+                const data = await response.json();
+                const fullName = `${data.nombre} ${data.apPaterno}`;
+                setUser(fullName);
+                navigate("/home");
             } else {
-                alert(data.msg); // Muestra el mensaje de error en caso de fallo en la autenticación
+                console.error('Error al iniciar sesión:', response.statusText);
             }
         } catch (error) {
-            console.error('Error en la solicitud:', error);
-            alert('Error al intentar iniciar sesión. Por favor, inténtalo de nuevo.');
+            console.error('Error al iniciar sesión:', error);
         }
     };
 
@@ -63,7 +67,7 @@ export const Login = () => {
                         <input
                             id="password"
                             type="password"
-                            value={pass}
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Ingresa tu contraseña"
                             className="form-control rounded-md focus:outline-none focus:ring-2 focus:ring-pacific-cyan focus:border-pacific-cyan"

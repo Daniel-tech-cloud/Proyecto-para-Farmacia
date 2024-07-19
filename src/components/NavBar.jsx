@@ -1,15 +1,18 @@
-import { useState } from 'react';
+// NavBar.js
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
-
+import { faSignOutAlt, faSignInAlt  } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from '../components/context/UserContext'; // Asegúrate de que la ruta es correcta
 import '../style.css';
 
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
-    // Función para cerrar sesión
+    const { user, setUser } = useUser();
+
     const handleLogout = () => {
-        // Lógica para cerrar sesión
+        setUser(null);
+        window.location.href = "/login"; // Redirige a la página de login
     };
 
     return (
@@ -36,16 +39,20 @@ export const NavBar = () => {
                 </div>
 
                 <div className="navbar-brand d-flex align-items-center">
-                    <span className="me-3">
-                        Daniel Barrera {/*  // TODO: Validar usuario */}
-                                        {/*  // TODO: Arreglar fondo de navbar */}
-                    </span>
-                    <button className="btn btn-outline-danger" onClick={handleLogout}>
-                        <FontAwesomeIcon icon={faSignOutAlt} /> Salir
-                    </button>
+                    {user ? (
+                        <>
+                            <span className="me-3">{user}</span>
+                            <button className="btn btn-outline-danger" onClick={handleLogout}>
+                                <FontAwesomeIcon icon={faSignOutAlt} /> Salir
+                            </button>
+                        </>
+                    ) : (
+                        <Link to="/login" className="btn btn-outline-success">
+                            <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
+                        </Link>
+                    )}
                 </div>
             </div>
         </nav>
     );
 };
-
