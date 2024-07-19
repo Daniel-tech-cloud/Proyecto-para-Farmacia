@@ -1,19 +1,36 @@
-// NavBar.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importa useLocation
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSignInAlt  } from '@fortawesome/free-solid-svg-icons';
-import { useUser } from '../components/context/UserContext'; // Asegúrate de que la ruta es correcta
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from '../components/context/UserContext';
 import '../style.css';
 
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const { user, setUser } = useUser();
+    const navigate = useNavigate(); // Usa useNavigate para redirigir
+    const location = useLocation(); // Obtiene la ubicación actual
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            try {
+                const parsedUser = JSON.parse(savedUser);
+                setUser(parsedUser); // Establece el usuario en el contexto
+            } catch (error) {
+                console.error('Error al analizar el usuario desde localStorage:', error);
+            }
+        }
+    }, [setUser]);
 
     const handleLogout = () => {
-        setUser(null);
-        window.location.href = "/login"; // Redirige a la página de login
+        localStorage.removeItem('user'); // Elimina el usuario de localStorage
+        setUser(null); // Limpia el estado del usuario
+        navigate("/login"); // Redirige a la página de login
     };
+
+    // Verifica si la ubicación actual es /login
+    const isLoginPage = location.pathname === '/login';
 
     return (
         <nav className="navbar navbar-expand-lg background-navbar rounded-3">
@@ -41,15 +58,17 @@ export const NavBar = () => {
                 <div className="navbar-brand d-flex align-items-center">
                     {user ? (
                         <>
-                            <span className="me-3">{user}</span>
+                            <span className="me-3">{user} </span>
                             <button className="btn btn-outline-danger" onClick={handleLogout}>
                                 <FontAwesomeIcon icon={faSignOutAlt} /> Salir
                             </button>
                         </>
                     ) : (
-                        <Link to="/login" className="btn btn-outline-success">
-                            <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
-                        </Link>
+                        !isLoginPage && (
+                            <Link to="/login" className="btn btn-outline-primary">
+                                Iniciar Sesión
+                            </Link>
+                        )
                     )}
                 </div>
             </div>

@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, setUser } = useUser();
+    const { setUser } = useUser();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        // Redirige a la página de inicio si el usuario ya está autenticado
-        if (user) {
-            navigate("/home");
-        }
-    }, [user, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -32,8 +25,9 @@ export const Login = () => {
             if (response.ok) {
                 const data = await response.json();
                 const fullName = `${data.nombre} ${data.apPaterno}`;
-                setUser(fullName);
-                navigate("/home");
+                setUser(fullName); // Establece el usuario en el contexto
+                localStorage.setItem('user', JSON.stringify(fullName)); // Guarda el usuario en localStorage
+                navigate("/home"); // Redirige a la página principal
             } else {
                 console.error('Error al iniciar sesión:', response.statusText);
             }

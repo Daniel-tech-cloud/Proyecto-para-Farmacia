@@ -60,7 +60,11 @@ body {
   width: 400px;
 }
 
-.card-font {
+.card-font  {
+  font-family: var(--fuentePrincipal);
+}
+.card-title{
+  font-weight: bold;
   font-family: var(--fuentePrincipal);
 }
 
