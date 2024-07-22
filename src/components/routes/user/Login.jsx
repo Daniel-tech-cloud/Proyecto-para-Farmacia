@@ -74,6 +74,11 @@ export const Login = () => {
                     >
                         Acceder
                     </button>
+                    <div className="text-center mt-4">
+                    <p className="text-cadet-gray">
+                        ¿No tienes una cuenta? <a href="/registro" className="text-pacific-cyan">Regístrate aquí</a>
+                    </p>
+                </div>
                 </form>
             </div>
         </div>

@@ -1,5 +1,11 @@
 
 export const RegistroUsuario = () => {
+
+    // Registrar a usuario nuevo
+    const handleRegister = () =>{
+
+    }
+
     return (
         <div className="container card mt-5 mb-5">
             <div className="card-header">

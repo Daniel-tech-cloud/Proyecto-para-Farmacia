@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importa useLocation
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../components/context/UserContext';
 import '../style.css';
 
@@ -66,7 +66,7 @@ export const NavBar = () => {
                     ) : (
                         !isLoginPage && (
                             <Link to="/login" className="btn btn-outline-success">
-                                Iniciar Sesión
+                                <FontAwesomeIcon icon={faSignInAlt} /> Iniciar Sesión
                             </Link>
                         )
                     )}
