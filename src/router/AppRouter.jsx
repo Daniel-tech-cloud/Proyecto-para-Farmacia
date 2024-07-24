@@ -25,12 +25,10 @@ export const AppRouter = () => {
                 <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorios" />} />
                 <Route path="busqueda/sustancia/:id" element={<Informacion tipo="Sustancia" />} />
 
-
                 {/* Usaurio */}
                 <Route path="laboratorios" element={<Laboratorios />} />
                 {/* Usa PrivateRoute para rutas protegidas */}
-                <Route path="alta" element={<AltaMedicamento/>} />
-                
+                <Route path="alta" element={<PrivateRoute element={AltaMedicamento} />} />
 
                 {/* Redirige a home si la ruta no coincide */}
                 <Route path="*" element={<Navigate to="/home" />} />

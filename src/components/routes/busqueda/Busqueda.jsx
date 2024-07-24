@@ -47,6 +47,7 @@ export const Busqueda = ({ tipo }) => {
             } else {
                 setResultados([]);
             }
+            console.log(data);
         } catch (error) {
             console.error('Error al realizar la búsqueda:', error);
         }
@@ -80,9 +81,10 @@ export const Busqueda = ({ tipo }) => {
             <div className="container mt-5">
                 <div className="row">
                     {resultados && resultados.map((item) => (
-                        
                         <div className="col-md-4 mb-4" key={item.id}>
                             <div className="card border-light">
+                                {/* Imagen en la parte superior de la tarjeta */}
+                                <img src={item.imagen} className="card-img-top" alt={item.nombre} />
                                 <div className="card-body card-font">
                                     <h5 className="card-title">{item.nombre}</h5>
                                     <p className="card-text">Descripción: {item.descripcion}</p>
@@ -124,6 +126,7 @@ export const Busqueda = ({ tipo }) => {
                     ))}
                 </div>
             </div>
+
         </>
     );
 };
