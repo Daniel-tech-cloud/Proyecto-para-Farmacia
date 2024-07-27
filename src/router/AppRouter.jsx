@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home, NavBar, Laboratorios } from "../components";
 import { RegistroUsuario, Login } from "../components/routes/user";
-import { Busqueda, Informacion, Indicaciones } from "../components/routes/busqueda";
+import { Busqueda, Informacion, Descripcion } from "../components/routes/busqueda";
 import { AltaMedicamento } from "../components/routes/new";
 import { UserProvider } from "../components/context/UserContext";
 import PrivateRoute from "../components/routes/user/PrivateRoute"; // Importa el HOC PrivateRoute
@@ -21,12 +21,13 @@ export const AppRouter = () => {
                 <Route path="busqueda/medicina" element={<Busqueda tipo="Medicamentos" />} />
                 <Route path="busqueda/laboratorio" element={<Busqueda tipo="Laboratorios" />} />
                 <Route path="busqueda/sustancia" element={<Busqueda tipo="Sustancias" />} />
-                <Route path="busqueda/medicina/:id" element={<Indicaciones />} />
-                <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorios" />} />
+                <Route path="busqueda/medicina/:id" element={<Descripcion />} />
+                <Route path="busqueda/laboratorio/:id" element={<Informacion tipo="Laboratorio" />} />
                 <Route path="busqueda/sustancia/:id" element={<Informacion tipo="Sustancia" />} />
 
-                {/* Usaurio */}
+                {/* Usuario */}
                 <Route path="laboratorios" element={<Laboratorios />} />
+
                 {/* Usa PrivateRoute para rutas protegidas */}
                 <Route path="alta" element={<PrivateRoute element={AltaMedicamento} />} />
 

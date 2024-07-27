@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export const RegistroUsuario = () => {
     const [rol, setRol] = useState('');
@@ -35,9 +35,9 @@ export const RegistroUsuario = () => {
     }
 
     return (
-        <div className="container card mt-5 mb-5">
+        <div className="container card mt-5 mb-5 register">
             <div className="card-header">
-                <h2 className="card-title font-h1">Registro de Usuario</h2>
+                <h2 className="card-title font-h1">Registro de usuario</h2>
                 <p className="card-description card-font">Completa los siguientes campos para crear una nueva cuenta.</p>
             </div>
             <div className="card-body card-font">
@@ -56,15 +56,15 @@ export const RegistroUsuario = () => {
                     <input id="first-name" type="text" className="form-control" placeholder="Ingresa tu nombre" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="last-name">Apellido Paterno</label>
+                    <label htmlFor="last-name">Apellido paterno</label>
                     <input id="last-name" type="text" className="form-control" placeholder="Ingresa tu apellido paterno" required value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="mother-last-name">Apellido Materno</label>
+                    <label htmlFor="mother-last-name">Apellido materno</label>
                     <input id="mother-last-name" type="text" className="form-control" placeholder="Ingresa tu apellido materno" required value={motherLastName} onChange={(e) => setMotherLastName(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="email">Correo Electrónico</label>
+                    <label htmlFor="email">Correo electrónico</label>
                     <input id="email" type="email" className="form-control" placeholder="Ingresa tu correo electrónico" required value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="form-group">

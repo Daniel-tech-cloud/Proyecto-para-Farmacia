@@ -1,3 +1,3 @@
 export * from './Busqueda';
-export * from './Indicaciones';
+export * from './Descripcion';
 export * from './Informacion';
