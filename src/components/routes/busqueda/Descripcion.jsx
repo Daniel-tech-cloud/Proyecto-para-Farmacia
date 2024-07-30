@@ -22,7 +22,6 @@ export const Descripcion = () => {
         }
         setLoading(false);
       } catch (error) {
-        console.error('Error al realizar la búsqueda:', error);
         setLoading(false);
       }
     };
@@ -56,8 +55,7 @@ export const Descripcion = () => {
               <p className="card-text"><strong>Laboratorio:</strong> {data?.laboratorios?.nombre}</p>
               <p className="card-text"><strong>Sustancia:</strong> {data?.sustancias?.nombre}</p>
               <p className="card-text"><strong>Presentación:</strong> {data?.presentaciones?.nombre}</p>
-              <p className="card-text"><strong>Fecha de Caducidad:</strong> {data?.caducidad?.slice(0, 10)}</p>
-              <button className="btn btn-outline-info w-100 btn-font p-1 ms-2">Comprar</button>
+              <button className="btn btn-outline-info w-100 btn-font p-1 ms-2">Agregar al carrito</button>
             </div>
           </div>
         </div>

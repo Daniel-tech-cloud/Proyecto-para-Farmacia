@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importa useLocation
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../components/context/UserContext';
@@ -8,15 +8,15 @@ import '../style.css';
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const { user, setUser } = useUser();
-    const navigate = useNavigate(); // Usa useNavigate para redirigir
-    const location = useLocation(); // Obtiene la ubicación actual
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const savedUser = localStorage.getItem('user');
         if (savedUser) {
             try {
                 const parsedUser = JSON.parse(savedUser);
-                setUser(parsedUser); // Establece el usuario en el contexto
+                setUser(parsedUser);
             } catch (error) {
                 console.error('Error al analizar el usuario desde localStorage:', error);
             }
@@ -24,12 +24,11 @@ export const NavBar = () => {
     }, [setUser]);
 
     const handleLogout = () => {
-        localStorage.removeItem('user'); // Elimina el usuario de localStorage
-        setUser(null); // Limpia el estado del usuario
-        navigate("/login"); // Redirige a la página de login
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate("/login");
     };
 
-    // Verifica si la ubicación actual es /login
     const isLoginPage = location.pathname === '/login';
 
     return (
@@ -37,7 +36,7 @@ export const NavBar = () => {
             <div className="container-fluid">
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img src="/public/img/logo.png" alt="Logo" className="img-logo img-fluid" />
-                    <h1 className="m-0">Farmacia Tlatelolco</h1>
+                    <h1 className="m-0">Farmacia de genéricos</h1>
                 </Link>
 
                 <button className="navbar-toggler" type="button" onClick={() => setShowMenu(!showMenu)}>
@@ -52,6 +51,11 @@ export const NavBar = () => {
                         <li className="nav-item">
                             <Link to="/laboratorios" className="nav-link">Laboratorios</Link>
                         </li>
+                        {user && (
+                            <li className="nav-item">
+                                <Link to="/inventario" className="nav-link">Inventario</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
 

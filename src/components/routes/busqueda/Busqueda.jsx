@@ -9,10 +9,15 @@ export const Busqueda = ({ tipo }) => {
     const [url, setUrl] = useState(null);
     const [resultados, setResultados] = useState([]);
     const [errorBusqueda, setErrorBusqueda] = useState('');
-    const debouncedDatoABuscar = useDebounce(datoABuscar, 500); // Ajusta el retraso según sea necesario
+    const debouncedDatoABuscar = useDebounce(datoABuscar, 500);
     const { data, isLoading, hasError } = useFetch(url);
 
     const navigate = useNavigate();
+
+    // Realiza la búsqueda inicial al montar el componente
+    useEffect(() => {
+        setUrl(`http://localhost:3001/api/events/search/${tipo}/search?nombre=a`);
+    }, [tipo]);
 
     useEffect(() => {
         if (debouncedDatoABuscar) {
@@ -44,12 +49,6 @@ export const Busqueda = ({ tipo }) => {
             }
         }
     }, [data, tipo]);
-
-    useEffect(() => {
-        if (hasError) {
-            setErrorBusqueda('Error al realizar la búsqueda.');
-        }
-    }, [hasError]);
 
     const handleVerIndicaciones = (idMedicina) => {
         navigate(`/busqueda/medicina/${idMedicina}`);
@@ -83,7 +82,7 @@ export const Busqueda = ({ tipo }) => {
                             className="form-control" 
                             value={datoABuscar} 
                             onChange={handleInputChange} 
-                            placeholder={`${tipo}`}
+                            placeholder={`Buscar ${tipo}`}
                         />
                         <button type="submit" className="btn btn-primary p-3 ms-2" disabled> 
                             <FontAwesomeIcon icon={faSearch} />

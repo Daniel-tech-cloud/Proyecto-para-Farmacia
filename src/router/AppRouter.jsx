@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Home, NavBar, Laboratorios } from "../components";
-import { RegistroUsuario, Login } from "../components/routes/user";
+import { Home, Inventario, NavBar, Laboratorios, Footer} from "../components";
+import { RegistroUsuario, Login, PrivateRoute } from "../components/routes/user";
 import { Busqueda, Informacion, Descripcion } from "../components/routes/busqueda";
 import { AltaMedicamento } from "../components/routes/new";
 import { UserProvider } from "../components/context/UserContext";
-import PrivateRoute from "../components/routes/user/PrivateRoute"; // Importa el HOC PrivateRoute
+
 
 export const AppRouter = () => {
     return (
@@ -30,10 +30,12 @@ export const AppRouter = () => {
 
                 {/* Usa PrivateRoute para rutas protegidas */}
                 <Route path="alta" element={<PrivateRoute element={AltaMedicamento} />} />
+                <Route path="inventario" element={<PrivateRoute element={Inventario} />} />
 
                 {/* Redirige a home si la ruta no coincide */}
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
+            <Footer />
         </UserProvider>
     );
 };
