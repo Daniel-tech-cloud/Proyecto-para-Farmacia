@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit, faSave, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../style.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Inventario = () => {
+    const navigate = useNavigate();
     const [inventario, setInventario] = useState([]);
+    const [medicamentos, setMedicamentos] = useState([]);
     const [editingItem, setEditingItem] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [newItem, setNewItem] = useState({
         nombreMedicamento: '',
+        idMedicamento: '', 
         idLaboratorio: '',
         cantidad: '',
         precioCompra: '',
@@ -19,6 +23,7 @@ export const Inventario = () => {
 
     useEffect(() => {
         fetchInventario();
+        fetchMedicamentos();
     }, []);
 
     const fetchInventario = async () => {
@@ -31,30 +36,19 @@ export const Inventario = () => {
         }
     };
 
-    const handleUpdate = async (item) => {
+    const fetchMedicamentos = async () => {
         try {
-            await fetch(`http://localhost:3001/api/events/inventory/${item.idMedicamento}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(item),
-            });
-            fetchInventario();
-            setEditingItem(null);
+            const response = await fetch('http://localhost:3001/api/events/search/medicamentos/');
+            const data = await response.json();
+            // Asegúrate de que data.medicamentos es un arreglo
+            if (data.ok && Array.isArray(data.medicamentos)) {
+                setMedicamentos(data.medicamentos);
+            } else {
+                setMedicamentos([]);
+            }
         } catch (error) {
-            console.error('Error updating inventario:', error);
-        }
-    };
-
-    const handleDelete = async (id) => {
-        try {
-            await fetch(`http://localhost:3001/api/events/inventory/${id}`, {
-                method: 'DELETE',
-            });
-            fetchInventario();
-        } catch (error) {
-            console.error('Error deleting inventario:', error);
+            console.error('Error fetching medicamentos:', error);
+            setMedicamentos([]);
         }
     };
 
@@ -71,6 +65,7 @@ export const Inventario = () => {
             setShowModal(false);
             setNewItem({
                 nombreMedicamento: '',
+                idMedicamento: '',  
                 idLaboratorio: '',
                 cantidad: '',
                 precioCompra: '',
@@ -82,17 +77,74 @@ export const Inventario = () => {
             console.error('Error adding inventario:', error);
         }
     };
+    
+    const handleUpdate = async (item) => {
+        try {
+            await fetch(`http://localhost:3001/api/events/inventory/${item.idMedicamento}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(item),
+            });
+            fetchInventario();
+            setEditingItem(null);
+        } catch (error) {
+            console.error('Error updating inventario:', error);
+        }
+    };    
+
+    const handleDelete = async (id) => {
+        try {
+            await fetch(`http://localhost:3001/api/events/inventory/${id}`, {
+                method: 'DELETE',
+            });
+            fetchInventario();
+        } catch (error) {
+            console.error('Error deleting inventario:', error);
+        }
+    };
+
+
+    const handleNewMedicament = () =>{
+        navigate("/alta");
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewItem({ ...newItem, [name]: value });
     };
 
+    const handleSelectChange = (e) => {
+        const selectedNombre = e.target.value;
+        const selectedMedicamento = medicamentos.find(med => med.nombre === selectedNombre);
+        
+        if (selectedMedicamento) {
+            setNewItem({
+                ...newItem,
+                nombreMedicamento: selectedNombre,
+                idMedicamento: selectedMedicamento.id, 
+                idLaboratorio: selectedMedicamento.laboratorios.id
+            });
+        } else {
+            setNewItem({
+                ...newItem,
+                nombreMedicamento: selectedNombre,
+                idMedicamento: '',  // Manejo del caso cuando no se encuentra el medicamento
+                idLaboratorio: ''
+            });
+        }
+        console.log(newItem);
+    };
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Inventario</h2>
-            <button className="btn btn-primary mb-3" onClick={() => setShowModal(true)}>
-                <FontAwesomeIcon icon={faPlus} /> Agregar Medicamento
+            <button className="btn btn-primary m-3" onClick={ handleNewMedicament }>
+                <FontAwesomeIcon icon={faPlus} /> Agregar nuevo medicamento
+            </button>
+
+            <button className="btn btn-primary m-3" onClick={() => setShowModal(true)}>
+                <FontAwesomeIcon icon={faPlus} /> Agregar al inventario
             </button>
             <table className="table table-striped table-bordered">
                 <thead className="thead-dark">
@@ -135,14 +187,19 @@ export const Inventario = () => {
                             <form>
                                 <div className="form-group">
                                     <label>Nombre del Medicamento</label>
-                                    <input
-                                        type="text"
+                                    <select
                                         className="form-control"
-                                        placeholder="Ingrese el nombre del medicamento"
                                         name="nombreMedicamento"
                                         value={newItem.nombreMedicamento}
-                                        onChange={handleChange}
-                                    />
+                                        onChange={handleSelectChange}
+                                    >
+                                        {medicamentos.map(med => (
+                                            <option key={med.id} value={med.nombre}>
+                                                {med.nombre}
+                                            </option>
+                                        ))}
+
+                                    </select>
                                 </div>
                                 <div className="form-group">
                                     <label>ID Laboratorio</label>
@@ -153,6 +210,7 @@ export const Inventario = () => {
                                         name="idLaboratorio"
                                         value={newItem.idLaboratorio}
                                         onChange={handleChange}
+                                        readOnly
                                     />
                                 </div>
                                 <div className="form-group">
@@ -201,7 +259,7 @@ export const Inventario = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label>Fecha de Caducidad</label>
+                                    <label>Caducidad</label>
                                     <input
                                         type="date"
                                         className="form-control"
@@ -214,10 +272,10 @@ export const Inventario = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
-                                <FontAwesomeIcon icon={faTimes} /> Cancelar
+                                Cancelar
                             </button>
                             <button type="button" className="btn btn-primary" onClick={handleAdd}>
-                                <FontAwesomeIcon icon={faSave} /> Guardar
+                                Guardar
                             </button>
                         </div>
                     </div>
@@ -227,57 +285,105 @@ export const Inventario = () => {
     );
 };
 
-const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
-    const [formData, setFormData] = useState(item);
+const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
+    <>
+        <td>{item.idMedicamento}</td>
+        <td>{item.nombreMedicamento}</td>
+        <td>{item.idLaboratorio}</td>
+        <td>{item.cantidad}</td>
+        <td>{item.precioCompra}</td>
+        <td>{item.precioVenta}</td>
+        <td>{item.fechaCompra}</td>
+        <td>{item.caducidad}</td>
+        <td>
+            <button className="btn btn-primary btn-sm mr-2" onClick={() => setEditingItem(item)}>
+                <FontAwesomeIcon icon={faEdit} />
+            </button>
+            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(item.idMedicamento)}>
+                <FontAwesomeIcon icon={faTrash} />
+            </button>
+        </td>
+    </>
+);
 
+const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSave = () => {
-        handleUpdate(formData);
+        setEditingItem({ ...item, [name]: value });
     };
 
     return (
         <>
             <td>{item.idMedicamento}</td>
-            <td>{item.nombreMedicamento}</td>
-            <td>{item.idLaboratorio}</td>
-            <td><input name="cantidad" value={formData.cantidad} onChange={handleChange} type="number" className="form-control" /></td>
-            <td><input name="precioCompra" value={formData.precioCompra} onChange={handleChange} type="number" step="0.01" className="form-control" /></td>
-            <td><input name="precioVenta" value={formData.precioVenta} onChange={handleChange} type="number" step="0.01" className="form-control" /></td>
-            <td><input name="fechaCompra" value={formData.fechaCompra.slice(0, 10)} onChange={handleChange} type="date" className="form-control" /></td>
-            <td><input name="caducidad" value={formData.caducidad.slice(0, 10)} onChange={handleChange} type="date" className="form-control" /></td>
             <td>
-                <button className="btn btn-success me-2" onClick={handleSave}>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="nombreMedicamento"
+                    value={item.nombreMedicamento}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="idLaboratorio"
+                    value={item.idLaboratorio}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="cantidad"
+                    value={item.cantidad}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="precioCompra"
+                    value={item.precioCompra}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="precioVenta"
+                    value={item.precioVenta}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="date"
+                    className="form-control"
+                    name="fechaCompra"
+                    value={item.fechaCompra}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="date"
+                    className="form-control"
+                    name="caducidad"
+                    value={item.caducidad}
+                    onChange={handleChange}
+                />
+            </td>
+            <td>
+                <button className="btn btn-success btn-sm mr-2" onClick={() => handleUpdate(item)}>
                     <FontAwesomeIcon icon={faSave} />
                 </button>
-                <button className="btn btn-secondary" onClick={() => setEditingItem(null)}>
+                <button className="btn btn-secondary btn-sm" onClick={() => setEditingItem(null)}>
                     <FontAwesomeIcon icon={faTimes} />
-                </button>
-            </td>
-        </>
-    );
-};
-
-const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => {
-    return (
-        <>
-            <td>{item.idMedicamento}</td>
-            <td>{item.nombreMedicamento}</td>
-            <td>{item.idLaboratorio}</td>
-            <td>{item.cantidad}</td>
-            <td>{item.precioCompra.toFixed(2)}</td>
-            <td>{item.precioVenta.toFixed(2)}</td>
-            <td>{item.fechaCompra.slice(0, 10)}</td>
-            <td>{item.caducidad.slice(0, 10)}</td>
-            <td>
-                <button className="btn btn-warning me-2" onClick={() => setEditingItem(item)}>
-                    <FontAwesomeIcon icon={faEdit} />
-                </button>
-                <button className="btn btn-danger" onClick={() => handleDelete(item.idMedicamento)}>
-                    <FontAwesomeIcon icon={faTrash} />
                 </button>
             </td>
         </>
