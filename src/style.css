@@ -50,6 +50,25 @@ body {
   font-size: 1.5rem;
 }
 
+.notification-icon {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  padding: 0.1em 0.4rem;
+}
+
+.notification-icon .btn-outline-secondary {
+  position: relative;
+  border: none;
+}
+
+.notification-icon .fa-bell {
+  font-size: 1.5rem;
+}
+
+
 .font-h1 {
   font-family: var(--fuentePrincipal);
   color: var(--color-RichBlack);

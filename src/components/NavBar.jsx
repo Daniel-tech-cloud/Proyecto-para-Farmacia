@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSignInAlt, faBell } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../components/context/UserContext';
 import '../style.css';
 
@@ -10,6 +10,7 @@ export const NavBar = () => {
     const { user, setUser } = useUser();
     const navigate = useNavigate();
     const location = useLocation();
+    const [notifications, setNotifications] = useState(1); // Ejemplo de número de notificaciones
 
     useEffect(() => {
         const savedUser = localStorage.getItem('user');
@@ -62,6 +63,17 @@ export const NavBar = () => {
                 <div className="navbar-brand d-flex align-items-center">
                     {user ? (
                         <>
+                            <div className="notification-icon position-relative me-5">
+                                <button className="btn btn-outline-secondary">
+                                    <FontAwesomeIcon icon={faBell} />
+                                </button>
+                                {notifications > 0 && (
+                                    <span className="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {notifications}
+                                        <span className="visually-hidden">Notificaciones</span>
+                                    </span>
+                                )}
+                            </div>
                             <span className="me-3">{user} </span>
                             <button className="btn btn-outline-danger" onClick={handleLogout}>
                                 <FontAwesomeIcon icon={faSignOutAlt} /> Salir

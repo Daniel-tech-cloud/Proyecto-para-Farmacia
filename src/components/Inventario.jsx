@@ -11,6 +11,7 @@ export const Inventario = () => {
     const [editingItem, setEditingItem] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [newItem, setNewItem] = useState({
+        idInventario: '',
         nombreMedicamento: '',
         idMedicamento: '', 
         idLaboratorio: '',
@@ -40,7 +41,6 @@ export const Inventario = () => {
         try {
             const response = await fetch('http://localhost:3001/api/events/search/medicamentos/');
             const data = await response.json();
-            // Asegúrate de que data.medicamentos es un arreglo
             if (data.ok && Array.isArray(data.medicamentos)) {
                 setMedicamentos(data.medicamentos);
             } else {
@@ -64,6 +64,7 @@ export const Inventario = () => {
             fetchInventario();
             setShowModal(false);
             setNewItem({
+                idInventario: '',
                 nombreMedicamento: '',
                 idMedicamento: '',  
                 idLaboratorio: '',
@@ -77,10 +78,10 @@ export const Inventario = () => {
             console.error('Error adding inventario:', error);
         }
     };
-    
+
     const handleUpdate = async (item) => {
         try {
-            await fetch(`http://localhost:3001/api/events/inventory/${item.idMedicamento}`, {
+            await fetch(`http://localhost:3001/api/events/inventory/${item.idInventario}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ export const Inventario = () => {
         } catch (error) {
             console.error('Error updating inventario:', error);
         }
-    };    
+    };
 
     const handleDelete = async (id) => {
         try {
@@ -105,8 +106,7 @@ export const Inventario = () => {
         }
     };
 
-
-    const handleNewMedicament = () =>{
+    const handleNewMedicament = () => {
         navigate("/alta");
     };
 
@@ -130,12 +130,12 @@ export const Inventario = () => {
             setNewItem({
                 ...newItem,
                 nombreMedicamento: selectedNombre,
-                idMedicamento: '',  // Manejo del caso cuando no se encuentra el medicamento
+                idMedicamento: '',
                 idLaboratorio: ''
             });
         }
-        console.log(newItem);
     };
+
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Inventario</h2>
@@ -149,6 +149,7 @@ export const Inventario = () => {
             <table className="table table-striped table-bordered">
                 <thead className="thead-dark">
                     <tr>
+                        <th>ID Inventario</th>
                         <th>ID Medicamento</th>
                         <th>Nombre</th>
                         <th>ID Laboratorio</th>
@@ -162,8 +163,8 @@ export const Inventario = () => {
                 </thead>
                 <tbody>
                     {inventario.map((item) => (
-                        <tr key={item.idMedicamento}>
-                            {editingItem?.idMedicamento === item.idMedicamento ? (
+                        <tr key={item.idInventario}>
+                            {editingItem?.idInventario === item.idInventario ? (
                                 <EditableRow item={editingItem} setEditingItem={setEditingItem} handleUpdate={handleUpdate} />
                             ) : (
                                 <ReadOnlyRow item={item} setEditingItem={setEditingItem} handleDelete={handleDelete} />
@@ -173,7 +174,6 @@ export const Inventario = () => {
                 </tbody>
             </table>
 
-            {/* Modal */}
             {showModal && (
                 <div className="modal">
                     <div className="modal-content">
@@ -198,7 +198,6 @@ export const Inventario = () => {
                                                 {med.nombre}
                                             </option>
                                         ))}
-
                                     </select>
                                 </div>
                                 <div className="form-group">
@@ -287,6 +286,7 @@ export const Inventario = () => {
 
 const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
     <>
+        <td>{item.idInventario}</td>
         <td>{item.idMedicamento}</td>
         <td>{item.nombreMedicamento}</td>
         <td>{item.idLaboratorio}</td>
@@ -296,10 +296,13 @@ const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
         <td>{item.fechaCompra}</td>
         <td>{item.caducidad}</td>
         <td>
-            <button className="btn btn-primary btn-sm mr-2" onClick={() => setEditingItem(item)}>
+            <button
+                className="btn btn-primary mr-2"
+                onClick={() => setEditingItem(item)}
+            >
                 <FontAwesomeIcon icon={faEdit} />
             </button>
-            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(item.idMedicamento)}>
+            <button className="btn btn-danger" onClick={() => handleDelete(item.idInventario)}>
                 <FontAwesomeIcon icon={faTrash} />
             </button>
         </td>
@@ -307,20 +310,39 @@ const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
 );
 
 const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
+    const [updatedItem, setUpdatedItem] = useState(item);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEditingItem({ ...item, [name]: value });
+        setUpdatedItem({ ...updatedItem, [name]: value });
     };
 
     return (
         <>
-            <td>{item.idMedicamento}</td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="idInventario"
+                    value={updatedItem.idInventario}
+                    readOnly
+                />
+            </td>
+            <td>
+                <input
+                    type="number"
+                    className="form-control"
+                    name="idMedicamento"
+                    value={updatedItem.idMedicamento}
+                    readOnly
+                />
+            </td>
             <td>
                 <input
                     type="text"
                     className="form-control"
                     name="nombreMedicamento"
-                    value={item.nombreMedicamento}
+                    value={updatedItem.nombreMedicamento}
                     onChange={handleChange}
                 />
             </td>
@@ -329,8 +351,8 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                     type="number"
                     className="form-control"
                     name="idLaboratorio"
-                    value={item.idLaboratorio}
-                    onChange={handleChange}
+                    value={updatedItem.idLaboratorio}
+                    readOnly
                 />
             </td>
             <td>
@@ -338,25 +360,27 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                     type="number"
                     className="form-control"
                     name="cantidad"
-                    value={item.cantidad}
+                    value={updatedItem.cantidad}
                     onChange={handleChange}
                 />
             </td>
             <td>
                 <input
                     type="number"
+                    step="0.01"
                     className="form-control"
                     name="precioCompra"
-                    value={item.precioCompra}
+                    value={updatedItem.precioCompra}
                     onChange={handleChange}
                 />
             </td>
             <td>
                 <input
                     type="number"
+                    step="0.01"
                     className="form-control"
                     name="precioVenta"
-                    value={item.precioVenta}
+                    value={updatedItem.precioVenta}
                     onChange={handleChange}
                 />
             </td>
@@ -365,7 +389,7 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                     type="date"
                     className="form-control"
                     name="fechaCompra"
-                    value={item.fechaCompra}
+                    value={updatedItem.fechaCompra}
                     onChange={handleChange}
                 />
             </td>
@@ -374,15 +398,21 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                     type="date"
                     className="form-control"
                     name="caducidad"
-                    value={item.caducidad}
+                    value={updatedItem.caducidad}
                     onChange={handleChange}
                 />
             </td>
             <td>
-                <button className="btn btn-success btn-sm mr-2" onClick={() => handleUpdate(item)}>
+                <button
+                    className="btn btn-primary mr-2"
+                    onClick={() => handleUpdate(updatedItem)}
+                >
                     <FontAwesomeIcon icon={faSave} />
                 </button>
-                <button className="btn btn-secondary btn-sm" onClick={() => setEditingItem(null)}>
+                <button
+                    className="btn btn-secondary"
+                    onClick={() => setEditingItem(null)}
+                >
                     <FontAwesomeIcon icon={faTimes} />
                 </button>
             </td>
