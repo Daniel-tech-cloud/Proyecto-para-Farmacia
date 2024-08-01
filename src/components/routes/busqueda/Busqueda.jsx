@@ -5,20 +5,27 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useFetch, useDebounce } from '../../../hooks';
 
 export const Busqueda = ({ tipo }) => {
+    // Estados para manejar los datos de búsqueda, URL de la API, resultados y errores
     const [datoABuscar, setDatoABuscar] = useState('');
     const [url, setUrl] = useState(null);
     const [resultados, setResultados] = useState([]);
     const [errorBusqueda, setErrorBusqueda] = useState('');
+
+    // Hook para manejar el debounce en la búsqueda
     const debouncedDatoABuscar = useDebounce(datoABuscar, 500);
+
+    // Custom hook para hacer fetch de los datos
     const { data, isLoading, hasError } = useFetch(url);
 
+    // Hook para manejar la navegación
     const navigate = useNavigate();
 
-    // Realiza la búsqueda inicial al montar el componente
+    // Configura la URL para la búsqueda inicial cuando el componente se monta
     useEffect(() => {
         setUrl(`http://localhost:3001/api/events/search/${tipo}/search?nombre=a`);
     }, [tipo]);
 
+    // Configura la URL de búsqueda cuando el dato a buscar cambia
     useEffect(() => {
         if (debouncedDatoABuscar) {
             setUrl(`http://localhost:3001/api/events/search/${tipo}/search?nombre=${debouncedDatoABuscar}`);
@@ -28,6 +35,7 @@ export const Busqueda = ({ tipo }) => {
         }
     }, [debouncedDatoABuscar, tipo]);
 
+    // Actualiza los resultados y el mensaje de error cuando los datos cambian
     useEffect(() => {
         if (data) {
             const tipoRespuestaMap = {
@@ -38,11 +46,7 @@ export const Busqueda = ({ tipo }) => {
             const resultadosKey = tipoRespuestaMap[tipo];
             if (data[resultadosKey]) {
                 setResultados(data[resultadosKey]);
-                if (data[resultadosKey].length === 0) {
-                    setErrorBusqueda('No se encontraron coincidencias.');
-                } else {
-                    setErrorBusqueda('');
-                }
+                setErrorBusqueda(data[resultadosKey].length === 0 ? 'No se encontraron coincidencias.' : '');
             } else {
                 setResultados([]);
                 setErrorBusqueda('No se encontraron coincidencias.');
@@ -50,6 +54,7 @@ export const Busqueda = ({ tipo }) => {
         }
     }, [data, tipo]);
 
+    // Funciones para manejar la navegación a detalles específicos
     const handleVerIndicaciones = (idMedicina) => {
         navigate(`/busqueda/medicina/${idMedicina}`);
     };
@@ -62,6 +67,7 @@ export const Busqueda = ({ tipo }) => {
         navigate(`/busqueda/sustancia/${idSustancia}`);
     };
 
+    // Maneja los cambios en el input de búsqueda
     const handleInputChange = (event) => {
         setDatoABuscar(event.target.value);
     };
@@ -71,7 +77,9 @@ export const Busqueda = ({ tipo }) => {
             <div className="container mt-5">
                 <div className="col">
                     <div className="row">
-                        <h1 className="color-h1 font-h1"> <small className="text-body"> Búsqueda por: {tipo} </small> </h1>
+                        <h1 className="color-h1 font-h1">
+                            <small className="text-body">Búsqueda por: {tipo}</small>
+                        </h1>
                     </div>
                 </div>
                 
@@ -84,7 +92,7 @@ export const Busqueda = ({ tipo }) => {
                             onChange={handleInputChange} 
                             placeholder={`Buscar ${tipo}`}
                         />
-                        <button type="submit" className="btn btn-primary p-3 ms-2" disabled> 
+                        <button type="submit" className="btn btn-primary p-3 ms-2" disabled>
                             <FontAwesomeIcon icon={faSearch} />
                         </button>
                     </div>
@@ -93,7 +101,7 @@ export const Busqueda = ({ tipo }) => {
             
             <div className="container mt-5">
                 <div className="row">
-                    {isLoading && <p>Cargando...</p>}
+                    {isLoading && <h2 className="text-center">Cargando...</h2>}
                     {errorBusqueda && <p>{errorBusqueda}</p>}
                     {Array.isArray(resultados) && resultados.length > 0 && resultados.map((item) => (
                         <div className="col-md-4 mb-4" key={item.id}>

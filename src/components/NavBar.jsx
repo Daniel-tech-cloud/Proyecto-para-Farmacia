@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSignInAlt, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSignInAlt, faBell, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../components/context/UserContext';
 import '../style.css';
 
 export const NavBar = () => {
+
     const [showMenu, setShowMenu] = useState(false);
     const { user, setUser } = useUser();
     const navigate = useNavigate();
     const location = useLocation();
-    const [notifications, setNotifications] = useState(1); // Ejemplo de número de notificaciones
+    const [notifications, setNotifications] = useState(0); // Estado inicial de las notificaciones
+    const [expiredMedicaments, setExpiredMedicaments] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        const savedUser = localStorage.getItem('user');
+        const savedUser = sessionStorage.getItem('user');
         if (savedUser) {
             try {
                 const parsedUser = JSON.parse(savedUser);
@@ -24,6 +27,23 @@ export const NavBar = () => {
         }
     }, [setUser]);
 
+    useEffect(() => {
+        if (user) {
+            fetchExpiredMedicaments();
+        }
+    }, [user]);
+
+    const fetchExpiredMedicaments = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/events/inventory/expired');
+            const data = await response.json();
+            setExpiredMedicaments(data);
+            setNotifications(data.length);
+        } catch (error) {
+            console.error('Error fetching expired medicaments:', error);
+        }
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('user');
         setUser(null);
@@ -31,6 +51,10 @@ export const NavBar = () => {
     };
 
     const isLoginPage = location.pathname === '/login';
+
+    const handleBellClick = () => {
+        setShowModal(true);
+    };
 
     return (
         <nav className="navbar navbar-expand-lg background-navbar rounded-3">
@@ -64,7 +88,7 @@ export const NavBar = () => {
                     {user ? (
                         <>
                             <div className="notification-icon position-relative me-5">
-                                <button className="btn btn-outline-secondary">
+                                <button className="btn btn-outline-secondary" onClick={handleBellClick}>
                                     <FontAwesomeIcon icon={faBell} />
                                 </button>
                                 {notifications > 0 && (
@@ -88,6 +112,36 @@ export const NavBar = () => {
                     )}
                 </div>
             </div>
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Medicamentos Caducados</h5>
+                            <button type="button" className="close" onClick={() => setShowModal(false)}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            {expiredMedicaments.length > 0 ? (
+                                <ul>
+                                    {expiredMedicaments.map(med => (
+                                        <li key={med.idInventario}>
+                                            {med.nombreMedicamento} - {med.cantidad} unidades
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No hay medicamentos caducados.</p>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 };

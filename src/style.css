@@ -402,11 +402,26 @@ body {
 
 
 /* Footer */
+/* Asegúrate de que el body y html ocupen toda la altura de la ventana */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Contenedor principal con un mínimo de altura para llenar la ventana */
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
 .footer {
   background-color: var(--color-RichBlack);
   color: var(--color-Platinum);
   padding: 20px 0;
   text-align: center;
+  margin-top: auto;
 }
 
 .footer-content {
@@ -469,10 +484,8 @@ body {
 }
 
 .footer-bottom {
-  margin-top: 20px;
   font-family: var(--fuenteSecundaria);
 }
-
 
 /* Media queries */
 @media (max-width: 576px) {

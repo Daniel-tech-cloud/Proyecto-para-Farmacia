@@ -21,6 +21,7 @@ export const Inventario = () => {
         fechaCompra: '',
         caducidad: ''
     });
+    const [error, setError] = useState('');
 
     useEffect(() => {
         fetchInventario();
@@ -34,6 +35,7 @@ export const Inventario = () => {
             setInventario(data);
         } catch (error) {
             console.error('Error fetching inventario:', error);
+            setError('Error fetching inventario');
         }
     };
 
@@ -45,14 +47,18 @@ export const Inventario = () => {
                 setMedicamentos(data.medicamentos);
             } else {
                 setMedicamentos([]);
+                setError('Error fetching medicamentos');
             }
         } catch (error) {
             console.error('Error fetching medicamentos:', error);
             setMedicamentos([]);
+            setError('Error fetching medicamentos');
         }
     };
 
     const handleAdd = async () => {
+        if (!validateForm()) return;
+
         try {
             await fetch('http://localhost:3001/api/events/inventory/add', {
                 method: 'POST',
@@ -76,10 +82,13 @@ export const Inventario = () => {
             });
         } catch (error) {
             console.error('Error adding inventario:', error);
+            setError('Error adding inventario');
         }
     };
 
     const handleUpdate = async (item) => {
+        if (!validateForm()) return;
+
         try {
             await fetch(`http://localhost:3001/api/events/inventory/${item.idInventario}`, {
                 method: 'PUT',
@@ -92,6 +101,7 @@ export const Inventario = () => {
             setEditingItem(null);
         } catch (error) {
             console.error('Error updating inventario:', error);
+            setError('Error updating inventario');
         }
     };
 
@@ -103,6 +113,7 @@ export const Inventario = () => {
             fetchInventario();
         } catch (error) {
             console.error('Error deleting inventario:', error);
+            setError('Error deleting inventario');
         }
     };
 
@@ -136,10 +147,19 @@ export const Inventario = () => {
         }
     };
 
+    const validateForm = () => {
+        if (!newItem.nombreMedicamento || !newItem.cantidad || !newItem.precioCompra || !newItem.precioVenta || !newItem.fechaCompra || !newItem.caducidad) {
+            setError('Todos los campos son obligatorios');
+            return false;
+        }
+        return true;
+    };
+
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Inventario</h2>
-            <button className="btn btn-primary m-3" onClick={ handleNewMedicament }>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <button className="btn btn-primary m-3" onClick={handleNewMedicament}>
                 <FontAwesomeIcon icon={faPlus} /> Agregar nuevo medicamento
             </button>
 
@@ -193,6 +213,7 @@ export const Inventario = () => {
                                         value={newItem.nombreMedicamento}
                                         onChange={handleSelectChange}
                                     >
+                                        <option value="">Seleccione un medicamento</option>
                                         {medicamentos.map(med => (
                                             <option key={med.id} value={med.nombre}>
                                                 {med.nombre}
@@ -270,11 +291,11 @@ export const Inventario = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                            <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
                                 Cancelar
                             </button>
-                            <button type="button" className="btn btn-primary" onClick={handleAdd}>
-                                Guardar
+                            <button className="btn btn-primary" onClick={handleAdd}>
+                                Agregar
                             </button>
                         </div>
                     </div>
@@ -296,10 +317,7 @@ const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
         <td>{item.fechaCompra}</td>
         <td>{item.caducidad}</td>
         <td>
-            <button
-                className="btn btn-primary mr-2"
-                onClick={() => setEditingItem(item)}
-            >
+            <button className="btn btn-warning" onClick={() => setEditingItem(item)}>
                 <FontAwesomeIcon icon={faEdit} />
             </button>
             <button className="btn btn-danger" onClick={() => handleDelete(item.idInventario)}>
@@ -319,24 +337,8 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
 
     return (
         <>
-            <td>
-                <input
-                    type="number"
-                    className="form-control"
-                    name="idInventario"
-                    value={updatedItem.idInventario}
-                    readOnly
-                />
-            </td>
-            <td>
-                <input
-                    type="number"
-                    className="form-control"
-                    name="idMedicamento"
-                    value={updatedItem.idMedicamento}
-                    readOnly
-                />
-            </td>
+            <td>{updatedItem.idInventario}</td>
+            <td>{updatedItem.idMedicamento}</td>
             <td>
                 <input
                     type="text"
@@ -346,15 +348,7 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                     onChange={handleChange}
                 />
             </td>
-            <td>
-                <input
-                    type="number"
-                    className="form-control"
-                    name="idLaboratorio"
-                    value={updatedItem.idLaboratorio}
-                    readOnly
-                />
-            </td>
+            <td>{updatedItem.idLaboratorio}</td>
             <td>
                 <input
                     type="number"
@@ -403,16 +397,10 @@ const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
                 />
             </td>
             <td>
-                <button
-                    className="btn btn-primary mr-2"
-                    onClick={() => handleUpdate(updatedItem)}
-                >
+                <button className="btn btn-success" onClick={() => handleUpdate(updatedItem)}>
                     <FontAwesomeIcon icon={faSave} />
                 </button>
-                <button
-                    className="btn btn-secondary"
-                    onClick={() => setEditingItem(null)}
-                >
+                <button className="btn btn-secondary" onClick={() => setEditingItem(null)}>
                     <FontAwesomeIcon icon={faTimes} />
                 </button>
             </td>
