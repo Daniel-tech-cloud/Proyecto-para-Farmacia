@@ -4,6 +4,7 @@ export const AltaMedicamento = () => {
     const [laboratorios, setLaboratorios] = useState([]);
     const [sustancias, setSustancias] = useState([]);
     const [presentaciones, setPresentaciones] = useState([]);
+    const [isCompuesto, setIsCompuesto] = useState(false); // Estado para manejar si el medicamento es compuesto
     const [formData, setFormData] = useState({
         nombre: '',
         sustancia: '',
@@ -11,51 +12,45 @@ export const AltaMedicamento = () => {
         laboratorio: '',
         descripcion: '',
         indicaciones: '',
-        imagen: null
+        imagen: null,
+        compuesto: '' // Agrega este campo para el medicamento compuesto
     });
 
     useEffect(() => {
-        // Fetch laboratorios
-        fetch('http://localhost:3001/api/events/search/laboratorios/')
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    setLaboratorios(data.laboratorios);
+        const fetchData = async () => {
+            try {
+                // Fetch laboratorios
+                const laboratoriosResponse = await fetch('http://localhost:3001/api/events/search/laboratorios/');
+                const laboratoriosData = await laboratoriosResponse.json();
+                if (laboratoriosData.ok) {
+                    setLaboratorios(laboratoriosData.laboratorios);
                 } else {
-                    console.error('Error en la respuesta de los laboratorios:', data);
+                    console.error('Error en la respuesta de los laboratorios:', laboratoriosData);
                 }
-            })
-            .catch(error => {
-                console.error('Error al obtener los laboratorios:', error);
-            });
 
-        // Fetch sustancias
-        fetch('http://localhost:3001/api/events/search/sustancias/')
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    setSustancias(data.sustancias);
+                // Fetch sustancias
+                const sustanciasResponse = await fetch('http://localhost:3001/api/events/search/sustancias/');
+                const sustanciasData = await sustanciasResponse.json();
+                if (sustanciasData.ok) {
+                    setSustancias(sustanciasData.sustancias);
                 } else {
-                    console.error('Error en la respuesta de las sustancias:', data);
+                    console.error('Error en la respuesta de las sustancias:', sustanciasData);
                 }
-            })
-            .catch(error => {
-                console.error('Error al obtener las sustancias:', error);
-            });
 
-        // Fetch presentaciones
-        fetch('http://localhost:3001/api/events/search/presentaciones/')
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    setPresentaciones(data.presentaciones);
+                // Fetch presentaciones
+                const presentacionesResponse = await fetch('http://localhost:3001/api/events/search/presentaciones/');
+                const presentacionesData = await presentacionesResponse.json();
+                if (presentacionesData.ok) {
+                    setPresentaciones(presentacionesData.presentaciones);
                 } else {
-                    console.error('Error en la respuesta de las presentaciones:', data);
+                    console.error('Error en la respuesta de las presentaciones:', presentacionesData);
                 }
-            })
-            .catch(error => {
-                console.error('Error al obtener las presentaciones:', error);
-            });
+            } catch (error) {
+                console.error('Error al obtener datos:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     const handleChange = (e) => {
@@ -69,7 +64,6 @@ export const AltaMedicamento = () => {
     const handleAltaMedicamento = async (event) => {
         event.preventDefault(); // Prevenir el envío del formulario por defecto
 
-        // Crear un objeto con los datos del formulario
         const formDataToSend = new FormData();
         formDataToSend.append('nombre', formData.nombre);
         formDataToSend.append('sustancia', formData.sustancia);
@@ -78,8 +72,10 @@ export const AltaMedicamento = () => {
         formDataToSend.append('descripcion', formData.descripcion);
         formDataToSend.append('indicaciones', formData.indicaciones);
         formDataToSend.append('imagen', formData.imagen);
+        if (isCompuesto) {
+            formDataToSend.append('compuesto', formData.compuesto);
+        }
 
-        // Enviar los datos al servidor
         try {
             const response = await fetch('http://localhost:3001/api/events/new/medicamento/', {
                 method: 'POST',
@@ -97,7 +93,8 @@ export const AltaMedicamento = () => {
                     laboratorio: '',
                     descripcion: '',
                     indicaciones: '',
-                    imagen: null
+                    imagen: null,
+                    compuesto: ''
                 });
                 alert('El medicamento se ha guardado exitosamente.');
             } else {
@@ -141,6 +138,26 @@ export const AltaMedicamento = () => {
                                 </option>
                             ))}
                         </select>
+                    </div>
+                    <div className="col-12 mb-3">
+                        <label htmlFor="compuesto" className="font-form form-label">Medicamento Compuesto: </label>
+                        <button
+                            type="button"
+                            className="btn btn-secondary m-1"
+                            onClick={() => setIsCompuesto(prevState => !prevState)}
+                        >
+                            {isCompuesto ? 'Sí' : 'No'}
+                        </button>
+                        {isCompuesto && (
+                            <input
+                                type="text"
+                                id="compuesto"
+                                className="form-control mt-3"
+                                placeholder="Ingresa información del compuesto"
+                                value={formData.compuesto}
+                                onChange={handleChange}
+                            />
+                        )}
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                         <label htmlFor="presentacion" className="font-form form-label">Presentación</label>
@@ -205,6 +222,7 @@ export const AltaMedicamento = () => {
                             onChange={handleChange}
                         />
                     </div>
+                    
                     <div className="mt-5 d-flex justify-content-end">
                         <button type="submit" className="btn-custom">Guardar</button>
                     </div>

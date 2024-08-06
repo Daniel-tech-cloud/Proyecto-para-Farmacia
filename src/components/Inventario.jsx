@@ -57,7 +57,7 @@ export const Inventario = () => {
     };
 
     const handleAdd = async () => {
-        if (!validateForm()) return;
+        
 
         try {
             await fetch('http://localhost:3001/api/events/inventory/add', {
@@ -87,7 +87,6 @@ export const Inventario = () => {
     };
 
     const handleUpdate = async (item) => {
-        if (!validateForm()) return;
 
         try {
             await fetch(`http://localhost:3001/api/events/inventory/${item.idInventario}`, {
@@ -147,13 +146,7 @@ export const Inventario = () => {
         }
     };
 
-    const validateForm = () => {
-        if (!newItem.nombreMedicamento || !newItem.cantidad || !newItem.precioCompra || !newItem.precioVenta || !newItem.fechaCompra || !newItem.caducidad) {
-            setError('Todos los campos son obligatorios');
-            return false;
-        }
-        return true;
-    };
+
 
     return (
         <div className="container mt-5">
