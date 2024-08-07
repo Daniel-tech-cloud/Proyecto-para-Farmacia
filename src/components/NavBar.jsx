@@ -7,6 +7,7 @@ import '../style.css';
 
 export const NavBar = () => {
 
+    const API_URL = import.meta.env.VITE_API_URL;
     const [showMenu, setShowMenu] = useState(false);
     const { user, setUser } = useUser();
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ export const NavBar = () => {
 
     const fetchExpiredMedicaments = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/events/inventory/expired');
+            const response = await fetch(`${API_URL}/events/inventory/expired`);
             const data = await response.json();
             setExpiredMedicaments(data);
             setNotifications(data.length);

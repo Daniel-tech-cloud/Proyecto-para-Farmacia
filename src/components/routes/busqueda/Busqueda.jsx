@@ -10,6 +10,7 @@ export const Busqueda = ({ tipo }) => {
     const [url, setUrl] = useState(null);
     const [resultados, setResultados] = useState([]);
     const [errorBusqueda, setErrorBusqueda] = useState('');
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Hook para manejar el debounce en la búsqueda
     const debouncedDatoABuscar = useDebounce(datoABuscar, 500);
@@ -22,13 +23,13 @@ export const Busqueda = ({ tipo }) => {
 
     // Configura la URL para la búsqueda inicial cuando el componente se monta
     useEffect(() => {
-        setUrl(`http://localhost:3001/api/events/search/${tipo}/search`);
+        setUrl(`${API_URL}/events/search/${tipo}/search`);
     }, [tipo]);
 
     // Configura la URL de búsqueda cuando el dato a buscar cambia
     useEffect(() => {
         if (debouncedDatoABuscar) {
-            setUrl(`http://localhost:3001/api/events/search/${tipo}/search?nombre=${debouncedDatoABuscar}`);
+            setUrl(`${API_URL}/events/search/${tipo}/search?nombre=${debouncedDatoABuscar}`);
         } else {
             setResultados([]);
             setErrorBusqueda('');

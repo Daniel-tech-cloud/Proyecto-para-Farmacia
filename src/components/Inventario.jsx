@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit, faSave, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
-import '../style.css';
 import { useNavigate } from 'react-router-dom';
+import '../style.css';
 
 export const Inventario = () => {
+    
+    const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const [inventario, setInventario] = useState([]);
     const [medicamentos, setMedicamentos] = useState([]);
@@ -30,7 +32,7 @@ export const Inventario = () => {
 
     const fetchInventario = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/events/inventory/');
+            const response = await fetch(`${API_URL}/events/inventory/`);
             const data = await response.json();
             setInventario(data);
         } catch (error) {
@@ -41,7 +43,7 @@ export const Inventario = () => {
 
     const fetchMedicamentos = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/events/search/medicamentos/');
+            const response = await fetch(`${API_URL}/events/search/medicamentos/`);
             const data = await response.json();
             if (data.ok && Array.isArray(data.medicamentos)) {
                 setMedicamentos(data.medicamentos);
@@ -60,7 +62,7 @@ export const Inventario = () => {
         
 
         try {
-            await fetch('http://localhost:3001/api/events/inventory/add', {
+            await fetch(`${API_URL}/events/inventory/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ export const Inventario = () => {
     const handleUpdate = async (item) => {
 
         try {
-            await fetch(`http://localhost:3001/api/events/inventory/${item.idInventario}`, {
+            await fetch(`${API_URL}/events/inventory/${item.idInventario}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +108,7 @@ export const Inventario = () => {
 
     const handleDelete = async (id) => {
         try {
-            await fetch(`http://localhost:3001/api/events/inventory/${id}`, {
+            await fetch(`${API_URL}/events/inventory/${id}`, {
                 method: 'DELETE',
             });
             fetchInventario();

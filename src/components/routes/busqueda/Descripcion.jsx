@@ -9,11 +9,12 @@ export const Descripcion = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/events/search/medicamentos/${id}`);
+        const response = await fetch(`${API_URL}/events/search/medicamentos/${id}`);
         const responseData = await response.json();
         if (responseData.ok) {
           setData(responseData.medicamento);

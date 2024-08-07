@@ -2,7 +2,8 @@ import { useFetch } from '../hooks/useFetch';
 import '../style.css'; // Asegúrate de que este archivo CSS esté importado
 
 export const Laboratorios = () => {
-    const { data, isLoading } = useFetch('http://localhost:3001/api/events/search/laboratorios/');
+    const API_URL = import.meta.env.VITE_API_URL;
+    const { data, isLoading } = useFetch(`${API_URL}/events/search/laboratorios/`);
 
     return (
         <div className="container mt-5">

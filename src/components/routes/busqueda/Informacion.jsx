@@ -4,14 +4,15 @@ import { useFetch } from "../../../hooks";
 
 export const Informacion = ({ tipo }) => {
   const { id } = useParams();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Función para construir la URL dependiendo del tipo
   const getUrl = (tipo) => {
     switch (tipo) {
       case 'Laboratorio':
-        return `http://localhost:3001/api/events/search/laboratorios/${id}`;
+        return `${API_URL}/events/search/laboratorios/${id}`;
       case 'Sustancia':
-        return `http://localhost:3001/api/events/search/sustancias/${id}`;
+        return `${API_URL}/events/search/sustancias/${id}`;
       default:
         return null;
     }

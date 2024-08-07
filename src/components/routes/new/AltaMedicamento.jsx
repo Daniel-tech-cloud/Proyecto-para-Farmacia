@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export const AltaMedicamento = () => {
+    const API_URL = import.meta.env.VITE_API_URL;
     const [laboratorios, setLaboratorios] = useState([]);
     const [sustancias, setSustancias] = useState([]);
     const [presentaciones, setPresentaciones] = useState([]);
@@ -20,7 +21,7 @@ export const AltaMedicamento = () => {
         const fetchData = async () => {
             try {
                 // Fetch laboratorios
-                const laboratoriosResponse = await fetch('http://localhost:3001/api/events/search/laboratorios/');
+                const laboratoriosResponse = await fetch(`${API_URL}/events/search/laboratorios/`);
                 const laboratoriosData = await laboratoriosResponse.json();
                 if (laboratoriosData.ok) {
                     setLaboratorios(laboratoriosData.laboratorios);
@@ -29,7 +30,7 @@ export const AltaMedicamento = () => {
                 }
 
                 // Fetch sustancias
-                const sustanciasResponse = await fetch('http://localhost:3001/api/events/search/sustancias/');
+                const sustanciasResponse = await fetch(`${API_URL}/events/search/sustancias/`);
                 const sustanciasData = await sustanciasResponse.json();
                 if (sustanciasData.ok) {
                     setSustancias(sustanciasData.sustancias);
@@ -38,7 +39,7 @@ export const AltaMedicamento = () => {
                 }
 
                 // Fetch presentaciones
-                const presentacionesResponse = await fetch('http://localhost:3001/api/events/search/presentaciones/');
+                const presentacionesResponse = await fetch(`${API_URL}/events/search/presentaciones/`);
                 const presentacionesData = await presentacionesResponse.json();
                 if (presentacionesData.ok) {
                     setPresentaciones(presentacionesData.presentaciones);
@@ -77,7 +78,7 @@ export const AltaMedicamento = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/events/new/medicamento/', {
+            const response = await fetch(`${API_URL}/events/new/medicamento/`, {
                 method: 'POST',
                 body: formDataToSend
             });

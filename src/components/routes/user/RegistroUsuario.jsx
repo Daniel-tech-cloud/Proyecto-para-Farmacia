@@ -7,6 +7,7 @@ export const RegistroUsuario = () => {
     const [motherLastName, setMotherLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleRegister = () => {
         const userData = {
@@ -18,7 +19,7 @@ export const RegistroUsuario = () => {
             pass: password
         };
 
-        fetch('http://localhost:3001/api/auth/new', {
+        fetch(`${API_URL}/auth/new`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
