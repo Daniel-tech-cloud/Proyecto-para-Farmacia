@@ -4,6 +4,7 @@ import { RegistroUsuario, Login, PrivateRoute } from "../components/routes/user"
 import { Busqueda, Informacion, Descripcion } from "../components/routes/busqueda";
 import { AltaMedicamento } from "../components/routes/new";
 import { UserProvider } from "../components/context/UserContext";
+import { UpdateMedicamento, UpdateLaboratorio, UpdateSustancia } from "../components/routes/update";
 
 export const AppRouter = () => {
     return (
@@ -16,7 +17,7 @@ export const AppRouter = () => {
                     <Route path="registro" element={<RegistroUsuario />} />
                     <Route path="home" element={<Home />} />
                     <Route path="laboratorios" element={<Laboratorios />} />
-                    
+
                     {/* Rutas de búsqueda públicas */}
                     <Route path="busqueda/medicina" element={<Busqueda tipo="Medicamentos" />} />
                     <Route path="busqueda/laboratorio" element={<Busqueda tipo="Laboratorios" />} />
@@ -27,6 +28,11 @@ export const AppRouter = () => {
 
                     {/* Usuario */}
                     <Route path="laboratorios" element={<Laboratorios />} />
+
+                    {/* Rutas de actualización */}
+                    <Route path="update/medicamento/:id" element={<UpdateMedicamento />} />
+                    <Route path="update/laboratorio/:id" element={<UpdateLaboratorio />} />
+                    <Route path="update/sustancia/:id" element={<UpdateSustancia />} />
 
                     {/* Usa PrivateRoute para rutas protegidas */}
                     <Route path="alta" element={<PrivateRoute element={AltaMedicamento} />} />

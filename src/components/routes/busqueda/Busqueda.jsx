@@ -22,7 +22,7 @@ export const Busqueda = ({ tipo }) => {
 
     // Configura la URL para la búsqueda inicial cuando el componente se monta
     useEffect(() => {
-        setUrl(`http://localhost:3001/api/events/search/${tipo}/search?nombre=a`);
+        setUrl(`http://localhost:3001/api/events/search/${tipo}/search`);
     }, [tipo]);
 
     // Configura la URL de búsqueda cuando el dato a buscar cambia
@@ -110,7 +110,7 @@ export const Busqueda = ({ tipo }) => {
                                 <div className="card-body card-font">
                                     <h5 className="card-title">{item.nombre}</h5>
                                     <p className="card-text">Descripción: {item.descripcion}</p>
-
+                                    
                                     {tipo === 'Medicamentos' && (
                                         <button
                                             type="button"
@@ -119,6 +119,7 @@ export const Busqueda = ({ tipo }) => {
                                         >
                                             Indicaciones
                                         </button>
+                                        
                                     )}
                                     
                                     {tipo === 'Laboratorios' && (
