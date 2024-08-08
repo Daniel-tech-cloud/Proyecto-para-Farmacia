@@ -1,5 +1,7 @@
 import { useFetch } from '../hooks/useFetch';
-import '../style.css'; // Asegúrate de que este archivo CSS esté importado
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
+import '../style.css'; 
 
 export const Laboratorios = () => {
     const API_URL = import.meta.env.VITE_API_URL;
@@ -15,14 +17,23 @@ export const Laboratorios = () => {
                 {data && data.laboratorios.map((laboratorio, index) => (
                     <div className="col" key={index}>
                         <div className="card laboratorio-card">
-                            <div className="card-body">
+                            <div className="card-body col-2 w-100">
                                 <h5 className="card-title">Número: {laboratorio.id}</h5>
                                 <p className="card-text">Nombre: {laboratorio.nombre}</p>
-                                <div className="d-flex justify-content-end">
-                                        <a href={`/busqueda/laboratorio/${laboratorio.id}`} className='btn btn-primary'>
-                                            Más información
-                                        </a>
+                                <div className="d-grid gap-2">
+                                    <div className="row">
+                                        <div className="col">
+                                            <a href={`/busqueda/laboratorio/${laboratorio.id}`} className="btn btn-primary">
+                                                <FontAwesomeIcon icon={faInfoCircle} /> Más información
+                                            </a>
+                                        </div>
+                                        <div className="col text-end">
+                                            <a href={`/update/laboratorio/${laboratorio.id}`} className="btn btn-secondary">
+                                                <FontAwesomeIcon icon={faEdit} /> Editar Laboratorio
+                                            </a>
+                                        </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
