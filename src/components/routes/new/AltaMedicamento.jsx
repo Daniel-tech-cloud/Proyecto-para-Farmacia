@@ -10,6 +10,7 @@ export const AltaMedicamento = () => {
         nombre: '',
         sustancia: '',
         presentacion: '',
+        tipo:'',
         laboratorio: '',
         descripcion: '',
         indicaciones: '',
@@ -67,6 +68,7 @@ export const AltaMedicamento = () => {
 
         const formDataToSend = new FormData();
         formDataToSend.append('nombre', formData.nombre);
+        formDataToSend.append('tipo', formData.tipo);
         formDataToSend.append('sustancia', formData.sustancia);
         formDataToSend.append('presentacion', formData.presentacion);
         formDataToSend.append('laboratorio', formData.laboratorio);
@@ -91,6 +93,7 @@ export const AltaMedicamento = () => {
                     nombre: '',
                     sustancia: '',
                     presentacion: '',
+                    tipo:'',
                     laboratorio: '',
                     descripcion: '',
                     indicaciones: '',
@@ -138,6 +141,22 @@ export const AltaMedicamento = () => {
                                     {item.nombre}
                                 </option>
                             ))}
+                        </select>
+                    </div>
+                    <div className="col-12 col-md-6 mb-3">
+                        <label htmlFor="sustancia" className="font-form form-label">Tipo</label>
+                        <select
+                            id="tipo"
+                            className="font-ddl form-select"
+                            value={formData.tipo}
+                            onChange={handleChange}
+                        >
+                        <option value="">Selecciona el tipo</option>
+                            <option value="Medicamento">Medicamento</option>
+                            <option value="Naturista">Naturista</option>
+                            <option value="Cosmético">Cosmético</option>
+                            <option value="Artículo">Artículo</option>
+                                                
                         </select>
                     </div>
                     <div className="col-12 mb-3">

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import '../style.css';
 
 export const Inventario = () => {
-    
     const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const [inventario, setInventario] = useState([]);
@@ -15,6 +14,7 @@ export const Inventario = () => {
     const [newItem, setNewItem] = useState({
         idInventario: '',
         nombreMedicamento: '',
+        tipo: '',
         idMedicamento: '', 
         idLaboratorio: '',
         cantidad: '',
@@ -35,6 +35,7 @@ export const Inventario = () => {
             const response = await fetch(`${API_URL}/events/inventory/`);
             const data = await response.json();
             setInventario(data);
+            
         } catch (error) {
             console.error('Error fetching inventario:', error);
             setError('Error fetching inventario');
@@ -59,8 +60,6 @@ export const Inventario = () => {
     };
 
     const handleAdd = async () => {
-        
-
         try {
             await fetch(`${API_URL}/events/inventory/add`, {
                 method: 'POST',
@@ -71,9 +70,11 @@ export const Inventario = () => {
             });
             fetchInventario();
             setShowModal(false);
+            
             setNewItem({
                 idInventario: '',
                 nombreMedicamento: '',
+                tipo: '',
                 idMedicamento: '',  
                 idLaboratorio: '',
                 cantidad: '',
@@ -89,7 +90,6 @@ export const Inventario = () => {
     };
 
     const handleUpdate = async (item) => {
-
         try {
             await fetch(`${API_URL}/events/inventory/${item.idInventario}`, {
                 method: 'PUT',
@@ -130,25 +130,26 @@ export const Inventario = () => {
     const handleSelectChange = (e) => {
         const selectedNombre = e.target.value;
         const selectedMedicamento = medicamentos.find(med => med.nombre === selectedNombre);
-        
+
         if (selectedMedicamento) {
             setNewItem({
                 ...newItem,
                 nombreMedicamento: selectedNombre,
                 idMedicamento: selectedMedicamento.id, 
-                idLaboratorio: selectedMedicamento.laboratorios.id
+                idLaboratorio: selectedMedicamento.laboratorios.id,
+                tipo: selectedMedicamento.tipo
             });
         } else {
             setNewItem({
                 ...newItem,
                 nombreMedicamento: selectedNombre,
                 idMedicamento: '',
-                idLaboratorio: ''
+                idLaboratorio: '',
+                tipo: ''
             });
         }
     };
-
-
+    
 
     return (
         <div className="container mt-5">
@@ -166,6 +167,7 @@ export const Inventario = () => {
                     <tr>
                         <th>ID Inventario</th>
                         <th>ID Medicamento</th>
+                        <th>Tipo</th>
                         <th>Nombre</th>
                         <th>ID Laboratorio</th>
                         <th>Cantidad</th>
@@ -217,11 +219,21 @@ export const Inventario = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
+                                    <label>Tipo</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="tipo"
+                                        value={newItem.tipo}
+                                        onChange={handleChange}
+                                        readOnly
+                                    />
+                                </div>
+                                <div className="form-group">
                                     <label>ID Laboratorio</label>
                                     <input
                                         type="number"
                                         className="form-control"
-                                        placeholder="Ingrese el ID del laboratorio"
                                         name="idLaboratorio"
                                         value={newItem.idLaboratorio}
                                         onChange={handleChange}
@@ -233,7 +245,6 @@ export const Inventario = () => {
                                     <input
                                         type="number"
                                         className="form-control"
-                                        placeholder="Ingrese la cantidad"
                                         name="cantidad"
                                         value={newItem.cantidad}
                                         onChange={handleChange}
@@ -245,7 +256,6 @@ export const Inventario = () => {
                                         type="number"
                                         step="0.01"
                                         className="form-control"
-                                        placeholder="Ingrese el precio de compra"
                                         name="precioCompra"
                                         value={newItem.precioCompra}
                                         onChange={handleChange}
@@ -257,7 +267,6 @@ export const Inventario = () => {
                                         type="number"
                                         step="0.01"
                                         className="form-control"
-                                        placeholder="Ingrese el precio de venta"
                                         name="precioVenta"
                                         value={newItem.precioVenta}
                                         onChange={handleChange}
@@ -286,11 +295,11 @@ export const Inventario = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                            <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
                                 Cancelar
                             </button>
-                            <button className="btn btn-primary" onClick={handleAdd}>
-                                Agregar
+                            <button type="button" className="btn btn-primary" onClick={handleAdd}>
+                                Guardar
                             </button>
                         </div>
                     </div>
@@ -300,10 +309,41 @@ export const Inventario = () => {
     );
 };
 
+const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditingItem({ ...item, [name]: value });
+    };
+
+    return (
+        <>
+            <td><input type="text" className="form-control" name="idInventario" value={item.idInventario} onChange={handleChange} /></td>
+            <td><input type="text" className="form-control" name="idMedicamento" value={item.idMedicamento} onChange={handleChange} /></td>
+            <td><input type="text" className="form-control" name="tipo" value={item.tipo} onChange={handleChange} /></td>
+            <td><input type="text" className="form-control" name="nombreMedicamento" value={item.nombreMedicamento} onChange={handleChange} /></td>
+            <td><input type="text" className="form-control" name="idLaboratorio" value={item.idLaboratorio} onChange={handleChange} /></td>
+            <td><input type="number" className="form-control" name="cantidad" value={item.cantidad} onChange={handleChange} /></td>
+            <td><input type="number" step="0.01" className="form-control" name="precioCompra" value={item.precioCompra} onChange={handleChange} /></td>
+            <td><input type="number" step="0.01" className="form-control" name="precioVenta" value={item.precioVenta} onChange={handleChange} /></td>
+            <td><input type="date" className="form-control" name="fechaCompra" value={item.fechaCompra} onChange={handleChange} /></td>
+            <td><input type="date" className="form-control" name="caducidad" value={item.caducidad} onChange={handleChange} /></td>
+            <td>
+                <button className="btn btn-success m-1" onClick={() => handleUpdate(item)}>
+                    <FontAwesomeIcon icon={faSave} />
+                </button>
+                <button className="btn btn-danger m-1" onClick={() => setEditingItem(null)}>
+                    <FontAwesomeIcon icon={faTimes} />
+                </button>
+            </td>
+        </>
+    );
+};
+
 const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
     <>
         <td>{item.idInventario}</td>
         <td>{item.idMedicamento}</td>
+        <td>{item.tipo}</td>
         <td>{item.nombreMedicamento}</td>
         <td>{item.idLaboratorio}</td>
         <td>{item.cantidad}</td>
@@ -312,93 +352,12 @@ const ReadOnlyRow = ({ item, setEditingItem, handleDelete }) => (
         <td>{item.fechaCompra}</td>
         <td>{item.caducidad}</td>
         <td>
-            <button className="btn btn-warning" onClick={() => setEditingItem(item)}>
+            <button className="btn btn-warning m-1" onClick={() => setEditingItem(item)}>
                 <FontAwesomeIcon icon={faEdit} />
             </button>
-            <button className="btn btn-danger" onClick={() => handleDelete(item.idInventario)}>
+            <button className="btn btn-danger m-1" onClick={() => handleDelete(item.idInventario)}>
                 <FontAwesomeIcon icon={faTrash} />
             </button>
         </td>
     </>
 );
-
-const EditableRow = ({ item, setEditingItem, handleUpdate }) => {
-    const [updatedItem, setUpdatedItem] = useState(item);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUpdatedItem({ ...updatedItem, [name]: value });
-    };
-
-    return (
-        <>
-            <td>{updatedItem.idInventario}</td>
-            <td>{updatedItem.idMedicamento}</td>
-            <td>
-                <input
-                    type="text"
-                    className="form-control"
-                    name="nombreMedicamento"
-                    value={updatedItem.nombreMedicamento}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>{updatedItem.idLaboratorio}</td>
-            <td>
-                <input
-                    type="number"
-                    className="form-control"
-                    name="cantidad"
-                    value={updatedItem.cantidad}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>
-                <input
-                    type="number"
-                    step="0.01"
-                    className="form-control"
-                    name="precioCompra"
-                    value={updatedItem.precioCompra}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>
-                <input
-                    type="number"
-                    step="0.01"
-                    className="form-control"
-                    name="precioVenta"
-                    value={updatedItem.precioVenta}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>
-                <input
-                    type="date"
-                    className="form-control"
-                    name="fechaCompra"
-                    value={updatedItem.fechaCompra}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>
-                <input
-                    type="date"
-                    className="form-control"
-                    name="caducidad"
-                    value={updatedItem.caducidad}
-                    onChange={handleChange}
-                />
-            </td>
-            <td>
-                <button className="btn btn-success" onClick={() => handleUpdate(updatedItem)}>
-                    <FontAwesomeIcon icon={faSave} />
-                </button>
-                <button className="btn btn-secondary" onClick={() => setEditingItem(null)}>
-                    <FontAwesomeIcon icon={faTimes} />
-                </button>
-            </td>
-        </>
-    );
-};
