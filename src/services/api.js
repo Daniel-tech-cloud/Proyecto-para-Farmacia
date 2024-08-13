@@ -50,3 +50,26 @@ export const updateSustancia = async (id, data) => {
     });
     return response.json();
 };
+
+export const addLaboratorio = async (newData) => {
+    const response = await fetch(`${API_URL}/events/new/Laboratorio/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData),
+    });
+    return response;
+};
+
+export const addSustancia = async (newData) => {
+    const response = await fetch(`${API_URL}/events/new/Sustancia/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData),
+    });
+    return response;
+};
+

@@ -126,7 +126,7 @@ export const Inventario = () => {
     };
 
     const handleNewMedicament = () => {
-        navigate("/alta");
+        navigate("/new/medicamento");
     };
 
     const handleChange = (e) => {

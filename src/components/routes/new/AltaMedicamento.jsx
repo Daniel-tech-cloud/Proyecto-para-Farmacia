@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const AltaMedicamento = () => {
     const API_URL = import.meta.env.VITE_API_URL;
@@ -114,7 +114,7 @@ export const AltaMedicamento = () => {
     return (
         <div className="container mt-5 mb-5">
             <div className="bg-form">
-                <h2 className="font-title d-flex justify-content-center mb-5">Nuevo Medicamento</h2>
+                <h2 className="font-title d-flex justify-content-center mb-5">Nuevo medicamento</h2>
                 <form className="row" onSubmit={handleAltaMedicamento}>
                     <div className="col-12 col-md-6 mb-3">
                         <label htmlFor="nombre" className="font-form form-label">Nombre</label>
@@ -142,6 +142,7 @@ export const AltaMedicamento = () => {
                                 </option>
                             ))}
                         </select>
+                        <a className="d-flex justify-content-end" href="/new/sustancia"> Agregar nueva sustancia </a>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                         <label htmlFor="sustancia" className="font-form form-label">Tipo</label>
@@ -210,6 +211,7 @@ export const AltaMedicamento = () => {
                                 </option>
                             ))}
                         </select>
+                        <a className="d-flex justify-content-end" href="/new/laboratorio"> Agregar nuevo laboratorio </a>
                     </div>
                     <div className="col-12 mb-3">
                         <label htmlFor="descripcion" className="font-form form-label">Descripción</label>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faSignInAlt, faBell, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -62,7 +63,7 @@ export const NavBar = () => {
             <div className="container-fluid">
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img src="/public/img/logo.png" alt="Logo" className="img-logo img-fluid" />
-                    <h1 className="m-0">Farmacia de genéricos</h1>
+                    <h1 className="font-h1">Farmacia de genéricos</h1>
                 </Link>
 
                 <button className="navbar-toggler" type="button" onClick={() => setShowMenu(!showMenu)}>
@@ -75,7 +76,13 @@ export const NavBar = () => {
                             <Link to="/home" className="nav-link">Inicio</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/medicamentos" className="nav-link">Medicamentos</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/laboratorios" className="nav-link">Laboratorios</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/sustancias" className="nav-link">Sustancias</Link>
                         </li>
                         {user && (
                             <li className="nav-item">

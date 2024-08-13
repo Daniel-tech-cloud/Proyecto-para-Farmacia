@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { updateSustancia } from '../../../services/api';
 
 export const UpdateSustancia = ({ id }) => {
+
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
 
@@ -12,7 +13,7 @@ export const UpdateSustancia = ({ id }) => {
         const response = await updateSustancia(id, data);
         console.log(response);
         if (response.ok) {
-            alert('Sustancia actualizada exitosamente');
+            alert('Registro actualizado exitosamente');
         } else {
             alert('Error al actualizar la sustancia');
         }

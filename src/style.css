@@ -28,7 +28,7 @@ body {
 .navbar-toggler {
   background-color: var(--color-Platinum);
   color: var(--color-Platinum);
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .navbar-toggler-icon {
@@ -37,7 +37,11 @@ body {
 
 .navbar-font {
   font-family: var(--fuentePrincipal);
-  font-size: 1.1rem;
+  font-size: 1rem;
+}
+
+.navbar-brand h1{
+  font-size: 1.6rem;
 }
 
 .navbar-brand h1,
@@ -47,7 +51,7 @@ body {
 
 .navbar-brand span {
   color: var(--color-Platinum);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .notification-icon {
@@ -439,12 +443,11 @@ html, body {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  padding: 20px;
+  padding: 10px;
   flex-wrap: wrap;
 }
 
 .footer-section {
-  margin: 10px;
   flex: 1;
 }
 
@@ -526,4 +529,3 @@ html, body {
       display: block;
   }
 }
-

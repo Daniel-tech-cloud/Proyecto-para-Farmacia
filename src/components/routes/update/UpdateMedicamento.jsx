@@ -1,4 +1,5 @@
-// components/UpdateMedicamento.js
+
+
 import { useState } from 'react';
 import { updateMedicamento } from '../../../services/api';
 
@@ -35,42 +36,95 @@ export const UpdateMedicamento = ({ id }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nombre</label>
-                <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+        <div className="container mt-5 mb-5">
+            <h2> Actualizar medicamento </h2>
+            <div className="card shadow-lg p-4">
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Nombre</label>
+                        <input
+                            type="text"
+                            name="nombre"
+                            className="form-control"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Sustancia</label>
+                        <input
+                            type="text"
+                            name="idSustancia"
+                            className="form-control"
+                            value={formData.idSustancia}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Presentación</label>
+                        <input
+                            type="text"
+                            name="idPresentacion"
+                            className="form-control"
+                            value={formData.idPresentacion}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Laboratorio</label>
+                        <input
+                            type="text"
+                            name="idLaboratorio"
+                            className="form-control"
+                            value={formData.idLaboratorio}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Descripción</label>
+                        <input
+                            type="text"
+                            name="descripcion"
+                            className="form-control"
+                            value={formData.descripcion}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Indicaciones</label>
+                        <input
+                            type="text"
+                            name="indicaciones"
+                            className="form-control"
+                            value={formData.indicaciones}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Compuesto</label>
+                        <input
+                            type="text"
+                            name="compuesto"
+                            className="form-control"
+                            value={formData.compuesto}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Imagen</label>
+                        <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleImageChange}
+                        />
+                    </div>
+                    <div className="d-flex justify-content-end"> 
+                        <button type="submit" className="btn btn-primary">Actualizar Medicamento</button>
+
+                    </div>
+                </form>
             </div>
-            <div>
-                <label>Sustancia</label>
-                <input type="text" name="idSustancia" value={formData.idSustancia} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Presentación</label>
-                <input type="text" name="idPresentacion" value={formData.idPresentacion} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Laboratorio</label>
-                <input type="text" name="idLaboratorio" value={formData.idLaboratorio} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Descripción</label>
-                <input type="text" name="descripcion" value={formData.descripcion} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Indicaciones</label>
-                <input type="text" name="indicaciones" value={formData.indicaciones} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Compuesto</label>
-                <input type="text" name="compuesto" value={formData.compuesto} onChange={handleChange} />
-            </div>
-            <div>
-                <label>Imagen</label>
-                <input type="file" onChange={handleImageChange} />
-            </div>
-            <button type="submit">Actualizar Medicamento</button>
-        </form>
+        </div>
     );
 };
-
-
