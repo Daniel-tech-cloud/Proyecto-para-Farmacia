@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Home, Inventario, NavBar, Laboratorios, Footer } from "../components";
+import { Home, NavBar, Laboratorios, Footer } from "../components";
 import { RegistroUsuario, Login, PrivateRoute } from "../components/routes/user";
 import { Busqueda, Informacion, Descripcion } from "../components/routes/busqueda";
 import { AltaMedicamento } from "../components/routes/new";
+import { Inventario } from "../components/routes/Inventario/";
 import { UserProvider } from "../components/context/UserContext";
 import { UpdateMedicamento, UpdateLaboratorio, UpdateSustancia } from "../components/routes/update";
 
