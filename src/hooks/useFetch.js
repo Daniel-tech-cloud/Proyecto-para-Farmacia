@@ -32,8 +32,10 @@ export const useFetch = (url, options = {}) => {
     };
 
     useEffect(() => {
-        getFetch();
-    }, [url]);
+        if (url) {
+            getFetch();
+        }
+    }, [url, options.refresh]); // Añadir `options.refresh` como dependencia
 
     return {
         ...state,

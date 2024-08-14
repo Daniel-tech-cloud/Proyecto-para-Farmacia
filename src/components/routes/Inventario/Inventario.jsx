@@ -169,7 +169,7 @@ export const Inventario = () => {
             <button className="btn btn-primary m-2" onClick={() => setShowModal(true)}>
                 <FontAwesomeIcon icon={faPlus} /> Agregar al inventario
             </button>
-            <div className="table-responsive mt-3 mb-5  table-shadow">
+            <div className="table-responsive mt-3 mb-5 table-shadow">
                 <table className="table table-striped table-bordered">
                     <thead className="thead-dark">
                         <tr>

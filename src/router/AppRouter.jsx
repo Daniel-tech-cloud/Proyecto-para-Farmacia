@@ -5,7 +5,8 @@ import { Busqueda, Informacion, Descripcion } from "../components/routes/busqued
 import { Add, AltaMedicamento } from "../components/routes/new";
 import { Inventario } from "../components/routes/Inventario/";
 import { UserProvider } from "../components/context/UserContext";
-import { UpdateMedicamento, UpdateLaboratorio, UpdateSustancia } from "../components/routes/update";
+import { UpdateMedicamento, UpdateEntity } from "../components/routes/update";
+import { updateLaboratorio, updateSustancia } from "../services/api";
 
 export const AppRouter = () => {
     return (
@@ -17,22 +18,22 @@ export const AppRouter = () => {
                     <Route path="login" element={ <Login /> } />
                     <Route path="registro" element={ <RegistroUsuario /> } />
                     <Route path="home" element={ <Home /> } />
-                    <Route path="medicamentos" element={ <Ver tipo="Medicamentos" /> } />
-                    <Route path="laboratorios" element={ <Ver tipo="Laboratorios" /> } />
-                    <Route path="sustancias" element={ <Ver tipo="Sustancias" /> } />
+                    <Route path="medicamentos" element={ <Ver tipo="Medicamento" /> } />
+                    <Route path="laboratorios" element={ <Ver tipo="Laboratorio" /> } />
+                    <Route path="sustancias" element={ <Ver tipo="Sustancia" /> } />
 
                     {/* Rutas de búsqueda públicas */}
-                    <Route path="busqueda/medicina" element={ <Busqueda tipo="Medicamentos" /> } />
-                    <Route path="busqueda/laboratorio" element={ <Busqueda tipo="Laboratorios" /> } />
-                    <Route path="busqueda/sustancia" element={ <Busqueda tipo="Sustancias" /> } />
+                    <Route path="busqueda/medicina" element={ <Busqueda tipo="Medicamento" /> } />
+                    <Route path="busqueda/laboratorio" element={ <Busqueda tipo="Laboratorio" /> } />
+                    <Route path="busqueda/sustancia" element={ <Busqueda tipo="Sustancia" /> } />
                     <Route path="busqueda/medicina/:id" element={ <Descripcion /> } />
                     <Route path="busqueda/laboratorio/:id" element={ <Informacion tipo="Laboratorio" /> } />
                     <Route path="busqueda/sustancia/:id" element={ <Informacion tipo="Sustancia" /> } />
 
                     {/* Rutas de actualización */}
-                    <Route path="update/medicamentos/:id" element={ <UpdateMedicamento /> } />
-                    <Route path="update/laboratorios/:id" element={ <UpdateLaboratorio /> } />
-                    <Route path="update/sustancias/:id" element={ <UpdateSustancia /> } />
+                    <Route path="update/medicamento/:id" element={ <UpdateMedicamento /> } />
+                    <Route path="update/laboratorio/:id" element={ <UpdateEntity type="Laboratorios" updateFunction={updateLaboratorio} /> } />
+                    <Route path="update/sustancia/:id" element={ <UpdateEntity type="Sustancias" updateFunction={updateSustancia} /> } />
 
                     {/* Usa PrivateRoute para rutas protegidas */}
                     
