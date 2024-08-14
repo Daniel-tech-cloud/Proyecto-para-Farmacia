@@ -3,7 +3,6 @@ import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-
     const API_URL = import.meta.env.VITE_API_URL;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,10 +25,20 @@ export const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                const token = data.token; // Suponiendo que el token se devuelve en data.token
                 const fullName = `${data.nombre} ${data.apPaterno}`;
-                setUser(fullName); // Establece el usuario en el contexto
-                localStorage.setItem('user', JSON.stringify(fullName)); // Guarda el usuario en localStorage
-                navigate("/home"); // Redirige a la página principal
+                
+                // Almacena el token en el localStorage
+                localStorage.setItem('token', token);
+
+                // Almacena el usuario en el contexto
+                setUser(fullName); 
+
+                // Guarda el nombre del usuario en el localStorage (opcional)
+                localStorage.setItem('user', JSON.stringify(fullName)); 
+
+                // Redirige a la página principal
+                navigate("/home");
             } else {
                 console.error('Error al iniciar sesión:', response.statusText);
             }
@@ -77,10 +86,10 @@ export const Login = () => {
                         Acceder
                     </button>
                     <div className="text-center mt-4">
-                    <p className="text-cadet-gray">
-                        ¿No tienes una cuenta? <a href="/registro" className="text-pacific-cyan">Regístrate aquí</a>
-                    </p>
-                </div>
+                        <p className="text-cadet-gray">
+                            ¿No tienes una cuenta? <a href="/registro" className="text-pacific-cyan">Regístrate aquí</a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

@@ -3,12 +3,14 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetch } from "../../../hooks";
 import { useState, useCallback } from 'react';
+import { useUser } from "../../context/UserContext"; // Importación del hook useUser
 
 export const Informacion = ({ tipo }) => {
   const { id } = useParams();
   const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate(); 
   const [reload, setReload] = useState(false); // Estado para controlar la recarga de datos
+  const { user } = useUser(); // Obtención del usuario desde el contexto
 
   // Función para construir la URL dependiendo del tipo
   const getUrl = useCallback((tipo) => {
@@ -35,7 +37,7 @@ export const Informacion = ({ tipo }) => {
     if (confirmed) {
       try {
         // Construir la URL del endpoint DELETE
-        const deleteUrl = `${API_URL}/events/delete/${tipo.toLowerCase()}/${itemId}`;
+        const deleteUrl = `${API_URL}/events/delete/${tipo.toLowerCase().slice(0, -1)}/${itemId}`;
 
         // Hacer la solicitud DELETE
         const response = await fetch(deleteUrl, {
@@ -45,7 +47,7 @@ export const Informacion = ({ tipo }) => {
         if (response.ok) {
           alert(`${tipo} eliminado correctamente`);
           setReload(prev => !prev); // Cambiar el estado para forzar la recarga de datos
-          navigate(`/${tipo}s`); // Redirigir a la página de tipo
+          navigate(`/${tipo.toLowerCase().slice(0, -1)}s`); // Redirigir a la página de tipo
         } else {
           const errorData = await response.json();
           alert(`Error al eliminar ${tipo}: ${errorData.error}`);
@@ -73,10 +75,13 @@ export const Informacion = ({ tipo }) => {
             <p className="card-text">{item.descripcion}</p>
           </div>
 
-          <div className="d-flex justify-content-end"> 
-            <button className="btn btn-danger m-1" onClick={() => handleDelete(item.id)}>
+          <div className="d-flex justify-content-end">
+            {/* validación usuario */}
+            {user && (
+              <button className="btn btn-danger m-1" onClick={() => handleDelete(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
-            </button>
+              </button>
+            )}
           </div>
         </div>
       ) : (

@@ -44,7 +44,7 @@ export const Inventario = () => {
                 setInventario([]); // O maneja el caso en que no es un array
             }
         } catch (error) {
-            console.error('Error fetching inventario:', error);
+            console.error('Error consultando inventario:', error);
             setError('Error fetching inventario');
         }
     };
@@ -57,12 +57,12 @@ export const Inventario = () => {
                 setMedicamentos(data.medicamentos);
             } else {
                 setMedicamentos([]);
-                setError('Error fetching medicamentos');
+                setError('Error consultando medicamentos');
             }
         } catch (error) {
-            console.error('Error fetching medicamentos:', error);
+            alert('Error consultando medicamentos:', error);
             setMedicamentos([]);
-            setError('Error fetching medicamentos');
+            setError('Error consultando medicamentos');
         }
     };
 
@@ -91,7 +91,7 @@ export const Inventario = () => {
                 caducidad: ''
             });
         } catch (error) {
-            console.error('Error adding inventario:', error);
+            alert('Error adding inventario:', error);
             setError('Error adding inventario');
         }
     };
@@ -106,24 +106,31 @@ export const Inventario = () => {
                 body: JSON.stringify(item),
             });
             fetchInventario();
+            alert("Registro actualizado");
             setEditingItem(null);
         } catch (error) {
-            console.error('Error updating inventario:', error);
+            alert('Error al actualizar inventario:', error);
             setError('Error updating inventario');
         }
     };
 
     const handleDelete = async (id) => {
-        try {
-            await fetch(`${API_URL}/events/inventory/${id}`, {
-                method: 'DELETE',
-            });
-            fetchInventario();
-        } catch (error) {
-            console.error('Error deleting inventario:', error);
-            setError('Error deleting inventario');
+        const confirmed = window.confirm('¿Está seguro de que desea eliminar este registro?');
+    
+        if (confirmed) {
+            try {
+                await fetch(`${API_URL}/events/inventory/${id}`, {
+                    method: 'DELETE',
+                });
+                alert('Registro eliminado exitosamente.');
+                fetchInventario(); // Llama a la función para actualizar la lista de inventarios
+            } catch (error) {
+                alert(`Error al eliminar registro: ${error}`);
+                setError('Error deleting inventory');
+            }
         }
     };
+    
 
     const handleNewMedicament = () => {
         navigate("/new/medicamento");

@@ -23,9 +23,9 @@ export const AppRouter = () => {
                     <Route path="sustancias" element={ <Ver tipo="Sustancia" /> } />
 
                     {/* Rutas de búsqueda públicas */}
-                    <Route path="busqueda/medicina" element={ <Busqueda tipo="Medicamento" /> } />
-                    <Route path="busqueda/laboratorio" element={ <Busqueda tipo="Laboratorio" /> } />
-                    <Route path="busqueda/sustancia" element={ <Busqueda tipo="Sustancia" /> } />
+                    <Route path="busqueda/medicina" element={ <Busqueda tipo="Medicamentos" /> } />
+                    <Route path="busqueda/laboratorio" element={ <Busqueda tipo="Laboratorios" /> } />
+                    <Route path="busqueda/sustancia" element={ <Busqueda tipo="Sustancias" /> } />
                     <Route path="busqueda/medicina/:id" element={ <Descripcion /> } />
                     <Route path="busqueda/laboratorio/:id" element={ <Informacion tipo="Laboratorio" /> } />
                     <Route path="busqueda/sustancia/:id" element={ <Informacion tipo="Sustancia" /> } />

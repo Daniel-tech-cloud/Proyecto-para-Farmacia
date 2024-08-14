@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './router/AppRouter';
 
-
-// https://api.fda.gov/other/substance.json?search=names.name:"PARACETAMOL"
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <BrowserRouter>
-        <AppRouter/>
-      </BrowserRouter>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   </React.StrictMode>
-)
+);

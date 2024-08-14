@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -50,6 +50,7 @@ export const Busqueda = ({ tipo }) => {
 
     // Hook para manejar la navegación
     const navigate = useNavigate();
+    
 
     // Actualiza los resultados y el mensaje de error cuando los datos cambian
     useEffect(() => {
@@ -72,7 +73,7 @@ export const Busqueda = ({ tipo }) => {
 
     // Maneja la navegación a detalles específicos
     const handleClick = (id) => {
-        navigate(`/busqueda/${tipo.toLowerCase()}/${id}`);
+        navigate(`/busqueda/${tipo.toLowerCase().slice(0, -1)}/${id}`);
     };
 
     // Maneja los cambios en el input de búsqueda

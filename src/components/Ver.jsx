@@ -12,8 +12,6 @@ export const Ver = ({ tipo }) => {
     };
 
     const { data, isLoading, hasError } = useFetch(endpoints[tipo]);
-
-    console.log(tipo);
     
     // Define rutas específicas para medicamentos y otros tipos
     const getDetailLink = (item) => {

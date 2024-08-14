@@ -1,15 +1,10 @@
 import { Navigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 
-// Componente de ruta privada
 export const PrivateRoute = ({ element: Component, ...rest }) => {
     const { user } = useUser();
-    
-    // Si el usuario no está autenticado, redirige a /login
-    if (!user) {
-        return <Navigate to="/login" />;
-    }
 
-    // Renderiza el componente protegido, pasando las props
-    return <Component {...rest} />;
+    return user ? <Component {...rest} /> : <Navigate to="/login" />;
 };
+
+
