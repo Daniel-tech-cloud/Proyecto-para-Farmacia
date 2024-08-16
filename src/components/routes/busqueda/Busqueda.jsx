@@ -36,22 +36,23 @@ const TIPO_COMPONENTS = {
 };
 
 export const Busqueda = ({ tipo }) => {
-    // Estado para manejar la entrada de búsqueda, resultados y errores
+    // Estado para manejar la entrada de búsqueda, resultados, errores y filtro de búsqueda
     const [datoABuscar, setDatoABuscar] = useState('');
     const [resultados, setResultados] = useState([]);
     const [errorBusqueda, setErrorBusqueda] = useState('');
+    const [searchByName, setSearchByName] = useState(true);
     const API_URL = import.meta.env.VITE_API_URL;
 
     // Hook para manejar el debounce en la búsqueda
     const debouncedDatoABuscar = useDebounce(datoABuscar, 500);
     
     // Hook personalizado para hacer fetch de los datos
-    const { data, isLoading } = useFetch(`${API_URL}/events/search/${tipo}/search${debouncedDatoABuscar ? `?nombre=${debouncedDatoABuscar}` : ''}`);
+    const searchField = searchByName ? 'nombre' : 'descripcion';
+    const { data, isLoading } = useFetch(`${API_URL}/events/search/${tipo}/search${debouncedDatoABuscar ? `?${searchField}=${debouncedDatoABuscar}` : ''}`);
 
     // Hook para manejar la navegación
     const navigate = useNavigate();
     
-
     // Actualiza los resultados y el mensaje de error cuando los datos cambian
     useEffect(() => {
         if (data) {
@@ -81,6 +82,11 @@ export const Busqueda = ({ tipo }) => {
         setDatoABuscar(event.target.value);
     };
 
+    // Maneja los cambios en los checkboxes de búsqueda
+    const handleCheckboxChange = (event) => {
+        setSearchByName(event.target.id === 'buscarPorNombre');
+    };
+
     return (
         <>
         <div className="container mt-5">
@@ -105,6 +111,37 @@ export const Busqueda = ({ tipo }) => {
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </div>
+
+                {tipo === 'Medicamentos' && (
+                    <div className="form-group d-flex justify-content-start mt-3">
+                        <div className="form-check form-switch me-4">
+                            <input 
+                                className="form-check-input custom-checkbox" 
+                                type="radio" 
+                                name="searchOption" 
+                                id="buscarPorNombre" 
+                                checked={searchByName} 
+                                onChange={handleCheckboxChange} 
+                            />
+                            <label className="form-check-label" htmlFor="buscarPorNombre">
+                                Buscar por Nombre
+                            </label>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input 
+                                className="form-check-input custom-checkbox" 
+                                type="radio" 
+                                name="searchOption" 
+                                id="buscarPorDescripcion" 
+                                checked={!searchByName} 
+                                onChange={handleCheckboxChange} 
+                            />
+                            <label className="form-check-label" htmlFor="buscarPorDescripcion">
+                                Buscar por Descripción
+                            </label>
+                        </div>
+                    </div>
+                )}
             </form>    
         </div>
         
