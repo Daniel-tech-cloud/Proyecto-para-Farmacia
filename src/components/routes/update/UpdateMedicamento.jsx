@@ -1,8 +1,9 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Importa useParams
+import { updateMedicamento, getMedicamentoById } from '../../../services/api';
 
-import { useState } from 'react';
-import { updateMedicamento } from '../../../services/api';
-
-export const UpdateMedicamento = ({ id }) => {
+export const UpdateMedicamento = () => {
+    const { id } = useParams(); // Obtén el ID desde los parámetros de la URL
     const [formData, setFormData] = useState({
         nombre: '',
         idSustancia: '',
@@ -10,9 +11,34 @@ export const UpdateMedicamento = ({ id }) => {
         idLaboratorio: '',
         descripcion: '',
         indicaciones: '',
-        compuesto: ''
+        compuesto: '', 
+        tipo: ''
     });
     const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getMedicamentoById(id);
+            if (response.ok) {
+                const data = await response.json();
+                setFormData({
+                    nombre: data.medicamento.nombre || '',
+                    idSustancia: data.medicamento.idSustancia || '',
+                    idPresentacion: data.medicamento.idPresentacion || '',
+                    idLaboratorio: data.medicamento.idLaboratorio || '',
+                    descripcion: data.medicamento.descripcion || '',
+                    indicaciones: data.medicamento.indicaciones || '',
+                    compuesto: data.medicamento.compuesto || '',
+                    tipo: data.medicamento.tipo || ''
+                });
+            } else {
+                alert('Error al cargar los datos del medicamento');
+            }
+        };
+        if (id) {
+            fetchData();
+        }
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +52,6 @@ export const UpdateMedicamento = ({ id }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await updateMedicamento(id, formData, image);
-        console.log(response);
         if (response.ok) {
             alert('Medicamento actualizado exitosamente');
         } else {
@@ -36,7 +61,7 @@ export const UpdateMedicamento = ({ id }) => {
 
     return (
         <div className="container mt-5 mb-5">
-            <h2> Actualizar medicamento </h2>
+            <h2>Actualizar medicamento</h2>
             <div className="card shadow-lg p-4">
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
@@ -57,6 +82,16 @@ export const UpdateMedicamento = ({ id }) => {
                             name="idSustancia"
                             className="form-control"
                             value={formData.idSustancia}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Tipo</label>
+                        <input
+                            type="text"
+                            name="idPresentacion"
+                            className="form-control"
+                            value={formData.tipo}
                             onChange={handleChange}
                         />
                     </div>
@@ -118,9 +153,8 @@ export const UpdateMedicamento = ({ id }) => {
                             onChange={handleImageChange}
                         />
                     </div>
-                    <div className="d-flex justify-content-end"> 
+                    <div className="d-flex justify-content-end">
                         <button type="submit" className="btn btn-primary">Actualizar Medicamento</button>
-
                     </div>
                 </form>
             </div>

@@ -35,28 +35,29 @@ export const Informacion = ({ tipo }) => {
     const confirmed = window.confirm(`¿Está seguro de que desea borrar este ${tipo}?`);
 
     if (confirmed) {
-      try {
-        // Construir la URL del endpoint DELETE
-        const deleteUrl = `${API_URL}/events/delete/${tipo.toLowerCase().slice(0, -1)}/${itemId}`;
+        try {
+            // Construir la URL del endpoint DELETE
+            const endpoint = tipo.toLowerCase() === 'laboratorio' ? 'laboratorio' : 'sustancia';
+            const deleteUrl = `${API_URL}/events/delete/${endpoint}/${itemId}`;
 
-        // Hacer la solicitud DELETE
-        const response = await fetch(deleteUrl, {
-          method: 'DELETE'
-        });
+            // Hacer la solicitud DELETE
+            const response = await fetch(deleteUrl, {
+                method: 'DELETE'
+            });
 
-        if (response.ok) {
-          alert(`${tipo} eliminado correctamente`);
-          setReload(prev => !prev); // Cambiar el estado para forzar la recarga de datos
-          navigate(`/${tipo.toLowerCase().slice(0, -1)}s`); // Redirigir a la página de tipo
-        } else {
-          const errorData = await response.json();
-          alert(`Error al eliminar ${tipo}: ${errorData.error}`);
+            if (response.ok) {
+                alert(`${tipo} eliminado correctamente`);
+                setReload(prev => !prev); // Cambiar el estado para forzar la recarga de datos
+                navigate(`/${endpoint}s`); // Redirigir a la página de tipo
+            } else {
+                const errorData = await response.json();
+                alert(`Error al eliminar ${tipo}: ${errorData.error}`);
+            }
+        } catch (error) {
+            alert(`Error al eliminar ${tipo}: ${error.message}`);
         }
-      } catch (error) {
-        alert(`Error al eliminar ${tipo}: ${error.message}`);
-      }
     }
-  };
+};
 
   return (
     <div className="container mt-5 mb-5">

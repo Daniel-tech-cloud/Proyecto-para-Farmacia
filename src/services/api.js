@@ -33,11 +33,18 @@ export const updateMedicamento = async (id, data, image) => {
     if (image) {
         formData.append('imagen', image);
     }
-    const response = await fetch(`${API_URL}/events/update/medicamentos/${id}`, {
+
+    const response = await fetch(`${API_URL}/events/update/medicamento/${id}`, {
         method: 'PUT',
-        body: formData
+        body: formData,
     });
-    return response.json();
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+    }
+
+    return response;
 };
 
 export const updateSustancia = async (id, data) => {
@@ -73,3 +80,8 @@ export const addSustancia = async (newData) => {
     return response;
 };
 
+
+export const getMedicamentoById = async (id) => {
+    const response = await fetch(`${API_URL}/events/search/medicamentos/${id}`);
+    return response;
+};

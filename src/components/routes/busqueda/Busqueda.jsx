@@ -74,7 +74,7 @@ export const Busqueda = ({ tipo }) => {
 
     // Maneja la navegación a detalles específicos
     const handleClick = (id) => {
-        navigate(`/busqueda/${tipo.toLowerCase().slice(0, -1)}/${id}`);
+        navigate(`/busqueda/medicina/${id}`);
     };
 
     // Maneja los cambios en el input de búsqueda

@@ -1,6 +1,7 @@
 import { useFetch } from '../hooks';
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../style.css'; 
 
 export const Ver = ({ tipo }) => {
@@ -10,6 +11,7 @@ export const Ver = ({ tipo }) => {
         'Laboratorio': `${API_URL}/events/search/laboratorios/`,
         'Sustancia': `${API_URL}/events/search/sustancias/`
     };
+    const navigate = useNavigate(); 
 
     const { data, isLoading, hasError } = useFetch(endpoints[tipo]);
     
@@ -22,11 +24,18 @@ export const Ver = ({ tipo }) => {
         }
     };
 
+    const handleNewMedicament = () => {
+        navigate("/new/medicamento");
+    }
+
     return (
         <div className="container mt-5">
             <h1 className="font-h1">
                 <small className="text-body">Ver {tipo.toLowerCase()}s:</small>
             </h1>
+            <button className="btn btn-primary m-3" onClick={handleNewMedicament}>
+                <FontAwesomeIcon icon={faPlus} /> Agregar nuevo medicamento
+            </button>
             {isLoading && <h2 className="text-center">Cargando...</h2>}
             {hasError && <p className="text-danger">Ocurrió un error al cargar los {tipo.toLowerCase()}s.</p>}
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3 mb-5">
